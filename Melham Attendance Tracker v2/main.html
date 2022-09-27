@@ -1,0 +1,2234 @@
+<!--See the code below the html scripts-->
+<!-- to see all the javascript code that i commemted -->
+<!DOCTYPE html>
+<html id="scrolling_bar_hide" style="overflow: hidden;" lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Attendance Tracker V2</title>
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+     <link
+      href="https://use.fontawesome.com/releases/v5.0.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/design3.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+  </head>
+  <style>
+        ::-webkit-scrollbar{width:9px;background-color:#fff}::-webkit-scrollbar-thumb{background:#0071bd;border-radius:10px}::-webkit-scrollbar-thumb:hover{background:#0364a5}.content-table{border-collapse:collapse;margin:0 auto;font-size:1.1em;max-width:1500px;width:100%;border-radius:5px 5px 0 0;overflow:hidden;box-shadow:0 0 20px rgba(0,0,0,.15)}.content-table thead tr{background-color:#0071bd;color:#fff;text-align:left;font-weight:700}.content-table td,.content-table th{padding:12px 15px}.content-table tbody tr{border-bottom:1px solid #ddd}.content-table tbody tr:nth-of-type(even){background-color:#fff}.content-table tbody tr:last-of-type{border-bottom:2px solid #000}.content-table tbody tr.active-row{font-weight:700;color:#0071bd}@media screen and (max-width:35.5em){table .content-table{display:block}table .content-table tr{height:auto;padding:20px}table .content-table td{margin-top:40px;text-align:center}}.team table{width:100%}.team table,.team td,.team th{border:1px solid #000;border-collapse:collapse}.scrollable{overflow-y:auto;max-height:400px}.hide{display:none}
+
+        .nav-tabs .nav-link {
+        margin-bottom: -1px;
+        background: #f0f0f0;
+        border-top: 1px solid #f0f0f0;
+        border-left: 1px solid #f0f0f0;
+        border-right:1px solid #f0f0f0;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+
+        }
+    </style>
+  <body>
+        <!-- page loader -->
+        <div id="topbar1" class="container">
+			<i>Loading. This could take a while, please wait...</i>
+		</div>
+        <div style="display:none;" id="sidebar1" class="container">
+			<i>Loading...</i>
+		</div>
+        <div style="display:none;" id="main1" class="container">
+			<i>Loading...</i>
+		</div>
+    <div class="container-scroller">
+      <nav id="topbar" class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row " >
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="main.html"><img src="assets/images/logo.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="main.html" ><img src="assets/images/logo-mini.png" alt="logo" /></a>
+        </div>
+
+        <div class="navbar-menu-wrapper d-flex align-items-stretch" >
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize" >
+            <span class="mdi mdi-menu" ></span>
+          </button>
+        <div class="search-field d-none d-md-block ">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="search-field d-block d-sm-none">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="padding: 17px 14px 17px 14px; background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button></a>
+              </div>
+            </div>
+          </div>
+
+          <ul class="navbar-nav navbar-nav-right">
+
+            <li class="nav-item nav-profile dropdown" id="profile_admin_only">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture_admin1" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black" id="display_profile_fullname_admin1">Loading...</p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="logout1" style="color:#000000">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+
+              </a>
+            </li>
+
+
+
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar2">
+          <ul class="nav">
+            <li class="nav-item nav-profile" id="profile_for_admin">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture_admin" alt="profile">
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2" id="display_profile_fullname_admin">Loading...</span>
+                  <span class="text-secondary text-small" id="display_profile_usertype">Loading...</span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">
+                <span class="menu-title" style="color:#0071BD;font-size: 18px;"><strong>Dashboard</strong></span>
+                <i class="mdi mdi-home menu-icon" style="color:#0071BD"></i>
+              </a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="online_today.html">
+                <span class="menu-title"><strong>Online Users</strong></span>
+                <i class="mdi menu-icon" ></i>(<span id="count_online" style="font-weight: bold;">0</span>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="community_forum.html">
+                <span class="menu-title"><strong>Community Forum</strong></span>
+                <i class="mdi mdi-message-text menu-icon"></i>
+              </a>
+            </li>
+             <li id="intern_online" class="nav-item">
+              <a class="nav-link" href="team_online_today.html">
+                <span class="menu-title"><strong>Team Monitoring</strong></span>
+                <i class="mdi mdi-account-multiple menu-icon" ></i>
+              </a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title"><strong>Project</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-audiobook menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+				          <li class="nav-item" id="all_project"> <a class="nav-link" href="all_project.html"><strong>All Project</strong></a></li>
+                  <li class="nav-item" id="team_project"> <a class="nav-link" href="team_project.html"><strong>Team Project</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_team">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+                <span class="menu-title"><strong>Manage Team</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-box menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic5">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_team.html"><strong>View Team</strong></a></li>
+				  <li class="nav-item" > <a class="nav-link" href="add_team.html" ><strong>Add Team</strong></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" id="manage_time">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic6" aria-expanded="false" aria-controls="ui-basic6">
+                <span class="menu-title"><strong>Manage Time</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-timer menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic6">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_hours.html"><strong>View Time</strong></a></li>
+				  <li class="nav-item" > <a class="nav-link" href="add_hours.html" ><strong>Add Hours</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_intern">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+                <span class="menu-title"><strong>Manage Intern</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-book-multiple menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic3">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_intern.html"><strong>View Intern</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_user">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                <span class="menu-title"><strong>Manage User</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-contacts menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic2">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item" id="view_for_admin"> <a class="nav-link" href="view_user.html"><strong>View User</strong></a></li>
+                  <li class="nav-item" id="add_for_admin"> <a class="nav-link" href="add_user.html"><strong>Add User</strong></a></li>
+                  <li class="nav-item" id="view_for_staff"> <a class="nav-link" href="view_user_intern.html"><strong>View User</strong></a></li>
+                  <li class="nav-item" id="add_for_staff"> <a class="nav-link" href="add_intern.html"><strong>Add User</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                <span class="menu-title"><strong>Intern leave</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-exit-to-app menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic1">
+                <ul class="nav flex-column sub-menu">
+				    <li class="nav-item" id="pending"> <a class="nav-link" href="pending.html"><strong>Pending</strong></a></li>
+				    <li class="nav-item" id="logs"> <a class="nav-link" href="leave_logs.html"><strong>Logs</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="webinars">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                <span class="menu-title"><strong>Webinar</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-web menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic4">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_webinar.html"><strong>View Webinar</strong></a></li>
+                  <li class="nav-item" > <a class="nav-link" href="add_webinar.html"><strong>Add Webinar</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="permission">
+              <a class="nav-link" href="permission.html">
+                <span class="menu-title"><strong>Permission</strong></span>
+                <i class="mdi mdi-clipboard-outline menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item" id="university_docs">
+              <a class="nav-link" href="view_submitted_university_documents.html">
+                <span class="menu-title"><strong>Intern University Docs</strong></span>
+                <i class="mdi mdi-library-books menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item" id="report_for_admin">
+              <a class="nav-link" href="report_for_admin.html">
+                <span class="menu-title"><strong>Report</strong></span>
+                <i class="mdi mdi-alert-box menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item sidebar-actions" >
+              <span class="nav-link">
+                <div class="mt-4">
+                  <div class="border-bottom">
+                    <p class="text-secondary">Documentation</p>
+                  </div>
+                </div>
+              </span>
+            </li>
+            <li class="nav-item" id="developers">
+              <a class="nav-link" href="developers.html">
+                <span class="menu-title"><strong>Developers</strong></span>
+                <i class="mdi mdi-group menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item" id="smtp_guide" style="display: none">
+              <a class="nav-link" href="smtp_guide.html">
+                <span class="menu-title"><strong>SMTP GUIDE</strong></span>
+                <i class="mdi mdi-email menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+
+        <div id="main" class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon  text-white me-2"  style="background-color:#0071BD;box-shadow: 0px 3px 8.3px 0.7px rgb(16, 130, 206); ">
+                  <i class="mdi mdi-home" ></i>
+                </span>DASHBOARD
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <div id="myDropdown">
+                     <button  class="badge badge-success" data-bs-toggle="modal" data-bs-target="#modal-attend_stats_close" id="att_opened" style="display: none;">Status: Event not set</button><button class="badge badge-danger " data-bs-toggle="modal" data-bs-target="#modal-attend_stats_open" id="att_closed" style="display: none;" >Status: Already set</button>&nbsp; | &nbsp;
+                      <button   class="badge badge-info dropdown-toggle " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Logs</button>
+                      <div class="dropdown-menu " style="width: 550px !important;height: 100px !important;">
+
+
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="table-responsive" >
+                                    <table class="table card-table table-vcenter text-nowrap datatable" id="attend_status_view_all">
+
+                                      <thead>
+                                        <tr>
+
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                        <th>Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="myTable">
+
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div style="color: #FFFFFF; font: normal 18px arial, sans-serif; background-color: #0071BD; border: #0071BD 5px solid; width: 48.8%; margin: 0 auto; padding: 4px 5px 3px 5px; border-radius: 4px;">
+              <marquee style="font-weight:bold" scrolldelay="120"><center><font id="display_event_title"></font>
+ <font style="color:yellow; display:none" id="display_calendar_event_title">There's new upcoming event, please click the "CALENDAR EVENT" button</font>
+              <font style="color:yellow; display:none" id="display_calendar_event_today">There's an event happening today, please click the "CALENDAR EVENT" button</font>
+              </center></marquee>
+              </div>
+              <br>
+            <div class="row" id="admin_card">
+              <div class="col-md-3 stretch-card grid-margin" >
+                <div class="card card-img-holder text-white " style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Admin</h4>
+                    <h2 class="mb-5" id="total_admin"></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-img-holder text-white" style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Staff</h4>
+                    <h2 class="mb-5" id="total_Staff"></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-img-holder text-white" style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Intern</h4>
+                    <h2 class="mb-5" id="total_intern"></h2>
+                  </div>
+                </div>
+              </div>
+			  <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-img-holder text-white" style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total User</h4>
+                    <h2 class="mb-5" id="total_user"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="admin_only">
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+
+
+             <div class="card-body">
+
+                    <center><h4 class="card-title">LIST OF INTERN SHIFT</h4></center>
+                    <div id="chart-tasks-overview123123"></div>
+
+                </div>
+
+
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+
+                <div class="card-body">
+
+                  <center><h4 class="card-title">REQUESTING INTERNS FOR OFFBOARDING STATUS</h4></center>
+                  <div><button class="badge badge-dark " onclick="show2();" id="tablebtn"  style="float: right;">VIEW LOGS</button><button  class="badge badge-danger " id="webinarbtn"  onclick="show1();" style="float: right;display: none;">HIDE LOGS</button></div>
+                    <br><br>
+                  <div class="table-responsive" id="webinarhide">
+                      <table class="table card-table table-vcenter text-nowrap datatable " id="view_requesting">
+                        <thead>
+                          <tr>
+
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Date</th>
+                          <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="myTable">
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="table-responsive" style="display: none;" id="tableshow">
+                      <table class="table card-table table-vcenter text-nowrap datatable " id="view_requesting_logs">
+                        <thead>
+                          <tr>
+
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Date</th>
+                          <th>Approved By</th>
+                          <th>Date Approved</th>
+                          </tr>
+                        </thead>
+                        <tbody id="myTable">
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="row" id="admin_only">
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">LIST OF INTERN STATUS</h4></center>
+                  <div id="chart-tasks-overview1"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">COMPANY</h4></center>
+                  <div id="chart-tasks-overview2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="admin_only">
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+
+                <div class="card-header" style="background-color:#0071BD;border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                  <ul class="nav nav-tabs card-header-tabs justify-content-center" id="bologna-list" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#intern_project_card1213" role="tab" aria-controls="intern_project_card1213" aria-selected="true" style="color:#000000"><strong>MCC</strong></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"  href="#team_project_card31213" role="tab" aria-controls="team_project_card31213" aria-selected="false" style="color:#000000"><strong>ANAFARA</strong></a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+
+                  <div class="tab-content mt-3">
+                    <div class="tab-pane active" id="intern_project_card1213" role="tabpanel">
+
+                    <center><h4 class="card-title">MELHAM CONSTRUCTION CORPORATION</h4></center>
+                    <center><h4 class="card-title">INTERN HOURS DATA TODAY</h4></center>
+                    <div id="mccIntern"></div>
+
+                    </div>
+
+                    <div class="tab-pane" id="team_project_card31213" role="tabpanel" aria-labelledby="team_project_card31213-tab">
+
+                    <center><h4 class="card-title">ANAFARA CORPORATION AND VISVIS TRAVEL & TOUR</h4></center>
+                    <center><h4 class="card-title">INTERN HOURS DATA TODAY</h4></center>
+                    <div id="anaIntern"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                    <div class="card-header" style="background-color:#0071BD;border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                  <ul class="nav nav-tabs card-header-tabs justify-content-center" id="bologna-list" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#intern_project_card" role="tab" aria-controls="intern_project_card" aria-selected="true" style="color:#000000"><strong>All Project</strong></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"  href="#team_project_card" role="tab" aria-controls="team_project_card" aria-selected="false" style="color:#000000"><strong>Team Project</strong></a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+
+                  <div class="tab-content mt-3">
+                    <div class="tab-pane active" id="intern_project_card" role="tabpanel">
+
+                <center><h4 class="card-title">INTERN PROJECT</h4></center>
+                  <div id="uProject"></div>
+
+                    </div>
+
+                    <div class="tab-pane" id="team_project_card" role="tabpanel" aria-labelledby="team_project_card-tab">
+                    <center><h4 class="card-title">TEAM PROJECT</h4></center>
+                  <div id="uTeam"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div  id="admin_only1">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+              <div class="card-body" >
+                <center><h4 class="card-title">MELHAM CONSTRUCTION CORPORATION</h4></center>
+                <center><h4 class="card-title">DEPARTMENT</h4></center>
+                <center><div id="chart-tasks-overview3" ></div></center>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div  id="admin_only2">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body" >
+                  <center><h4 class="card-title">ANAFARA CORPORATION AND VISVIS TRAVEL & TOUR</h4></center>
+                  <center><h4 class="card-title">DEPARTMENT</h4></center>
+                  <center><div id="chart-tasks-overview4" ></div></center>
+                </div>
+              </div>
+            </div>
+            </div>
+          <div  id="admin_only2">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body" >
+                  <center><h4 class="card-title">REPORTED SYSTEM ISSUE</h4></center>
+                  <center><div id="report_issue" ></div></center>
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+
+            <div class="col-md-6 grid-margin stretch-card" id="announce">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+
+                <div class="card-body">
+                  <div><button  class="badge badge-success " onclick="show2();" id="tablebtn" style="float: right;"><i class="mdi   mdi-eye"></i></button><button  class="badge badge-success " id="webinarbtn"  onclick="show1();" style="float: right;display: none;"><i class="mdi   mdi-eye-off"></i></button></div>
+                  <center><h4 class="card-title">ANNOUNCEMENT </h4></center>
+                  	<hr style="color:black; border:2px solid;">
+                  <div class="scrollable " id="webinarhide">
+                    <div id="webinar_announcement"></div>
+                </div>
+
+                <div style="display: none;" id="tableshow">
+
+                <div class="table-responsive" >
+                  <table style="overflow-x:auto;" width="98%" class="table card-table table-vcenter text-nowrap datatable" id="view_webinar">
+
+                    <thead>
+                      <tr>
+
+                      <th>Participant</th>
+                      <th>Title</th>
+                      <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="myTable">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+
+            <div class="modal modal-blur fade " id="modal-webinar_paid" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 35%;">
+                <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                  <div class="modal-status bg-success"></div>
+
+                  <div class="modal-body">
+                    <h3 class="modal-title w-100 text-center">CONFIRMATION</h3>
+
+                      <hr >
+
+                    <form  id="entry-form" method="POST" action="api/attended_webinar.php" class="needs-validation" novalidate>
+                    <input type="hidden" class="form-control" name="user_acc_id" id="user_acc_id" required>
+                    <input type="hidden" class="form-control" name="web_id" id="web_id" required>
+
+
+
+                            <label for="payment"><b>MODE OF PAYMENT</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="payment" name="payment" style="border: 1px solid #000000;" placeholder="Mode of Payment" required/>
+                            </div>
+
+                            <br>
+                            <label for="screenshot"><b>PROOF OF PAYMENT</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="screenshot" name="screenshot" style="border: 1px solid #000000;" placeholder="Screeshot Link" required/>
+                            </div>
+
+
+                  </div>
+                  <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                      <div style="margin: auto;">
+                        <button type="submit" class="btn  me-2" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                    </form>
+                        <a href="main.html" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+
+                          </a>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal modal-blur fade " id="modal-attend_stats_close" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 35%;">
+                <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                  <div class="modal-status bg-success"></div>
+
+                  <div class="modal-body">
+                    <h3 class="modal-title w-100 text-center">Are you sure you want close attendance?</h3>
+                    <br>
+                    <form  id="entry-form2" method="POST" action="api/attend_status2.php" class="needs-validation2" novalidate>
+                    <input type="hidden" class="form-control" name="attend_status_user_id" id="attend_status_user_id" required>
+                    <input type="hidden" class="form-control" name="status_close" id="status_close"  value="2" required>
+
+
+
+                            <label for="event_title"><b>EVENT TITLE</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="event_title" name="event_title"  placeholder="Enter title" required/>
+                            </div>
+                            <br>
+                            <label for="event_title"><b>FROM</b></label>
+                            <div >
+                              <input type="datetime-local" class="form-control" id="date_from" name="date_from"  placeholder="Enter title" required/>
+                            </div>
+                            <br>
+                             <label for="event_title"><b>TO</b></label>
+                            <div >
+                              <input type="datetime-local" class="form-control" id="date_to" name="date_to"  placeholder="Enter title" required/>
+                            </div>
+                            <br>
+
+
+                  </div>
+                  <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                      <div style="margin: auto;">
+                        <button type="submit" class="btn  me-2" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                    </form>
+                        <a onClick="modal_close1();" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+
+                          </a>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal modal-blur fade " id="modal-attend_stats_open" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 35%;">
+                <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                  <div class="modal-status bg-success"></div>
+
+                  <div class="modal-body">
+                    <h3 class="modal-title w-100 text-center">Are you sure you want open attendance?</h3>
+                    <br>
+                    <form  id="entry-form1" method="POST" action="api/attend_status1.php" class="needs-validation1" novalidate>
+                    <input type="hidden" class="form-control" name="attend_status_user_id1" id="attend_status_user_id1" required>
+                    <input type="hidden" class="form-control" name="status_open1" id="status_open1"  value="1" required>
+
+
+
+                            <label for="event_title1"><b>EVENT TITLE</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="event_title1" name="event_title1"  placeholder="Enter title" required/>
+                            </div>
+
+                            <br>
+
+
+                  </div>
+                  <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                      <div style="margin: auto;">
+                        <button type="submit" class="btn  me-2" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                    </form>
+                        <a onClick="modal_close2();" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+
+                          </a>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal modal-blur fade" id="modal-leader" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                <div class="modal-status bg-success"></div>
+
+                <div class="modal-body">
+                  <h3 class="modal-title w-100 text-center">CONFIRMATION</h3>
+                      <br>
+                      <center><img id="output12345" src="assets/images/faces/default.jpg" width="120" height="120" class="img-thumbnail"/></center>
+
+                      <br>
+                      <center><h4 id="fullname1234"></h4></center>
+                      <br>
+                      <div style="text-align:center">
+                          <label for="required_hrs"><b style="font-size: 14px;">REQUIRED HOURS</b></label>
+                            <div>
+                                <p style="line-height:5px;margin:0px;"><br></p>
+                              <input type="text" class="form-control" id="required_hrs"  name="required_hrs" disabled required/>
+                            </div>
+                            <p style="line-height:10px;margin:0px;"><br></p>
+                            <div class="row">
+                        <div class="col-sm-6">
+                            <label for="deducted_hrs"><b style="font-size: 14px;">DEDUCTED HOURS</b></label>
+
+                            <div >
+                                <p style="line-height:5px;margin:0px;"><br></p>
+                              <input type="text" class="form-control" id="deducted_hrs" name="deducted_hrs" disabled required/>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+
+                            <label for="penalty_hrs"><b style="font-size: 14px;">PENALTY HOURS</b></label>
+                            <div>
+                                <p style="line-height:5px;margin:0px;"><br></p>
+                              <input type="text" class="form-control" id="penalty_hrs"  name="penalty_hrs" disabled required/>
+                            </div>
+
+
+                        </div>
+					</div>
+					<p style="line-height:10px;margin:0px;"><br></p>
+                      <div class="row">
+                        <div class="col-sm-6">
+                            <label for="render_hrs"><b style="font-size: 14px;">RENDERED HOURS</b></label>
+
+                            <div >
+                                <p style="line-height:5px;margin:0px;"><br></p>
+                              <input type="text" class="form-control" id="render_hrs" name="render_hrs" disabled required/>
+                            </div>
+                        </div>
+						<div class="col-sm-6">
+
+                            <label for="total_render_hrs"><b style="font-size: 14px;"> TOTAL RENDERED HOURS</b></label>
+                            <div>
+                                <p style="line-height:5px;margin:0px;"><br></p>
+                              <input type="text" class="form-control" id="total_render_hrs"  name="total_render_hrs" disabled required/>
+                            </div>
+
+
+                        </div>
+					</div>
+					        <p style="line-height:10px;margin:0px;"><br></p>
+					        <label for="remining_hrs"><b style="font-size: 14px;">REMAINING HOURS</b></label>
+                            <div>
+                                <p style="line-height:5px;margin:0px;"><br></p>
+                              <input type="text" class="form-control" id="remining_hrs"  name="remining_hrs" disabled required/>
+                            </div>
+                            <p style="line-height:10px;margin:0px;"><br></p>
+                            <input type="hidden" class="form-control" name="user_acc_id_inten_detail" id="user_acc_id_inten_detail" required>
+                            <input type="hidden" class="form-control" name="user_acc_id_timesheet" id="user_acc_id_timesheet" required>
+                            <button class="badge badge-dark" onclick="intern_details(document.getElementById('user_acc_id_inten_detail').value)">INTERN DETAILS</button>
+                            <button class="badge badge-dark" onclick="intern_timesheet(document.getElementById('user_acc_id_timesheet').value)">INTERN TIMESHEET</button>
+					</div>
+                  <form  id="entry-form12312" method="POST" action="api/approved_requesting_intern.php" class="needs-validation1321321" novalidate>
+                  <input type="hidden" class="form-control" name="user_acc_id_intern" id="user_acc_id_intern" required>
+                  <input type="hidden" class="form-control" name="user_acc_id_staff_admin" id="user_acc_id_staff_admin" required>
+
+
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                    <div style="margin: auto;">
+                      <button type="submit" class="btn  me-2" id="add_project1212" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                  </form>
+                      <a onClick="modal_close113();" id="cancelBtn2313" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+                        </a>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js "></script>
+    <link rel="stylesheet" href="assets/js/jquery.dataTables.min.css" >
+    <script src="assets/vendors/js/vendor.bundle.base1.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/js/apexcharts.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+    <!-- others plugins -->
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/scripts.js"></script>
+  </body>
+
+  <!-- This is the start of the javascript required for the front end of the system -->
+  <!-- Not all of them are commented by me and some of it are left uncommented -->
+  <!-- If you have questions feel free to ask Mr. Hassanor Mandi, Mr. Feric Decenan as they are the creator of the code and also a lead developer in this team-->
+  <script>
+    $('#bologna-list a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+
+  function modal_close113(){
+      $("#modal-leader").modal('hide');
+    }
+
+  </script>
+    <script>
+     $(document).ready(function(){
+       //this code uses AJAX(google to for its meaning) to communicate to the php API to grab a data of the event status of the company and
+       //to the attendance page that you can see it in the dashboard page  moving from side to side from the database
+        $.ajax({    //create an ajax request to display.php
+          type: "GET",
+          url: "api/attend_opened_closed_status.php",
+          dataType: "html",   //expect html to be returned
+          success: function(response){
+
+            var response1 = response.split("|");
+            $("#display_event_title").html(response1[1]);
+            if(response1[0] == 2)
+            {
+
+              $("#att_closed").show();
+              document.getElementById('display_event_title').style.color = 'yellow';
+            }
+            else
+            {
+              $("#att_opened").show();
+            }
+          }
+        });
+
+      });
+      </script>
+  <script>
+
+    //this code uses AJAX(google to for its meaning) to communicate to the php API to grab a data of the how many users online from the database
+    $.ajax({
+				type: "GET",
+				async: false,
+				url: "api/count_online.php",
+				success: function(response){
+                    if(response > 99)
+                    {
+                        $("#count_online").html("99+");
+
+                    }else{
+					    $("#count_online").html(response);
+                    }
+				}
+
+			});
+
+      // this is used for the page loading screen
+      // if the all the page content (css, html, javascript, jquery, & ajax) loads up then
+      // disables the page loading screen and
+      // displays the content
+      // theres a minimum delay of 2.1 seconds (1000 * 1000 * 100)
+	document.addEventListener("DOMContentLoaded", function(event) {
+		setTimeout(function(){
+            document.getElementById("topbar1").style.display = 'none';
+            document.getElementById("topbar").style.opacity = '1';
+            document.getElementById("sidebar1").style.display = 'block';
+
+
+            setTimeout(function(){
+                document.getElementById("sidebar1").style.display = 'none';
+                document.getElementById("sidebar2").style.opacity = '1';
+                document.getElementById("main1").style.display = 'block';
+
+                setTimeout(function(){
+                    document.getElementById("main1").style.display = 'none';
+                    document.getElementById("main").style.opacity = '1';
+                    document.getElementById("scrolling_bar_hide").style.overflow = 'auto';
+
+
+		        },100);
+            },1000);
+		},1000);
+
+	});
+
+  //getting user credientials from presetted cookie variables
+  //using a credentials in a cookie is a bad practice for securing a system
+  //i recommend to find another method for storing and querying user credentials
+		function getCookie(cName) {
+	    const name = cName + "=";
+	    const cDecoded = decodeURIComponent(document.cookie); //to be careful
+	    const cArr = cDecoded .split('; ');
+	    let res;
+	    cArr.forEach(val => {
+		  if (val.indexOf(name) === 0) res = val.substring(name.length);
+	    })
+	    return res;
+		  }
+
+		  function eraseCookie(name) {
+			document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		  }
+
+		  var user_name = getCookie('user_name');
+		  var pwd = getCookie('pwd');
+		  var uty = getCookie('uty');
+          var user_id = getCookie('user_id');
+          var position = getCookie('position');
+
+
+            $.ajax({    //create an ajax request to display.php
+              type: "GET",
+              url: "api/get-current-login-data1.php?id="+ user_id,
+              dataType: "html",   //expect html to be returned
+              success: function(response){
+                var response1 = response.split("|");
+
+                $("#display_profile_fullname_admin").html(response1[1]);
+                $("#display_profile_fullname_admin1").html(response1[0] + ' ' + response1[1]);
+                $("#display_profile_usertype").html(response1[2]);
+                $("#display_profile_picture_admin").attr('src',"api/uploaded_profile/" + response1[3]);
+                $("#display_profile_picture_admin1").attr('src',"api/uploaded_profile/" + response1[3]);
+              }
+            });
+
+
+        $("#user_acc_id").val(user_id);
+			$("#user_acc_id1").val(user_id);
+            $("#attend_status_user_id").val(user_id);
+        $("#attend_status_user_id1").val(user_id);
+
+
+
+        $(document).ready(function(){
+            $("#logout1").click(function(){
+              eraseCookie("user_name");
+              eraseCookie("pwd");
+              eraseCookie("uty");
+              eraseCookie("user_id");
+              alert("Thank you for using the app.");
+              window.location.replace('index.html');
+            });
+        });
+
+      if(uty == 'Admin')
+      {
+        const arr_admin = ["#intern_online", "#view_team_project", "#view_project", "#submit_team_project", "#submit_project", "#intern_card", "#view_for_staff", "#add_for_staff", "#apply_leave", "#leave_status", "#report_for_intern", "#take_attendance", "#take_attendance1", "#weekly_report", "#announce", "#intern_only", "#intern_only1", "#profile_for_intern", "#profile_intern_only", "#take_attendance2", "#take_attendance3", "#take_attendance4"];
+
+        arr_admin.forEach(function (item) {
+            $(item).hide();
+        });
+        document.getElementById("all_att_logs").style.display = 'block';
+        document.getElementById("intern_att_logs").style.display = 'none';
+
+      }
+      else if(uty == 'Staff')
+      {
+        const arr_staff = ["#intern_online", "#view_team_project", "#view_project", "#submit_team_project", "#submit_project", "#intern_card", "#view_for_admin", "#add_for_admin", "#apply_leave", "#leave_status", "#report_for_intern", "#take_attendance", "#take_attendance1", "#weekly_report", "#announce", "#intern_only", "#intern_only1", "#profile_for_intern", "#profile_intern_only", "#take_attendance2", "#take_attendance3", "#take_attendance4", "#myDropdown"];
+
+        arr_staff.forEach(function (item) {
+            $(item).hide();
+        });
+        document.getElementById("all_att_logs").style.display = 'block';
+        document.getElementById("intern_att_logs").style.display = 'none';
+
+      }else{
+		  if(user_name == undefined){
+			  window.location.replace('index.html');
+		  }else{
+            window.location.href='dashboard.html';
+          }
+      }
+
+      function webinar_id(data){
+
+      $("#web_id").val(data);
+      }
+
+        $.ajax({
+				type: "GET",
+				async: false,
+				url: "api/count_online.php",
+				success: function(response){
+                    if(response > 99)
+                    {
+                        $("#count_online").html("99+");
+
+                    }else{
+					    $("#count_online").html(response);
+                    }
+				}
+
+			});
+	document.addEventListener("DOMContentLoaded", function(event) {
+		setTimeout(function(){
+            document.getElementById("topbar1").style.display = 'none';
+            document.getElementById("topbar").style.opacity = '1';
+            document.getElementById("sidebar1").style.display = 'block';
+
+
+            setTimeout(function(){
+                document.getElementById("sidebar1").style.display = 'none';
+                document.getElementById("sidebar2").style.opacity = '1';
+                document.getElementById("main1").style.display = 'block';
+
+                setTimeout(function(){
+                    document.getElementById("main1").style.display = 'none';
+                    document.getElementById("main").style.opacity = '1';
+                    document.getElementById("scrolling_bar_hide").style.overflow = 'auto';
+
+
+		        },100);
+            },1000);
+		},1000);
+
+	});
+
+		function getCookie(cName) {
+	    const name = cName + "=";
+	    const cDecoded = decodeURIComponent(document.cookie); //to be careful
+	    const cArr = cDecoded .split('; ');
+	    let res;
+	    cArr.forEach(val => {
+		  if (val.indexOf(name) === 0) res = val.substring(name.length);
+	    })
+	    return res;
+		  }
+      //this used to erase existing cookies that has been used for this system in the local storage
+		  function eraseCookie(name) {
+			document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		  }
+
+		  var user_name = getCookie('user_name');
+		  var pwd = getCookie('pwd');
+		  var uty = getCookie('uty');
+          var user_id = getCookie('user_id');
+          var position = getCookie('position');
+
+
+            $.ajax({    //create an ajax request to display.php
+              type: "GET",
+              url: "api/get-current-login-data1.php?id="+ user_id,
+              dataType: "html",   //expect html to be returned
+              success: function(response){
+                var response1 = response.split("|");
+
+                $("#display_profile_fullname_admin").html(response1[1]);
+                $("#display_profile_fullname_admin1").html(response1[0] + ' ' + response1[1]);
+                $("#display_profile_usertype").html(response1[2]);
+                $("#display_profile_picture_admin").attr('src',"api/uploaded_profile/" + response1[3]);
+                $("#display_profile_picture_admin1").attr('src',"api/uploaded_profile/" + response1[3]);
+
+              }
+            });
+
+        $("#user_acc_id").val(user_id);
+			$("#user_acc_id1").val(user_id);
+            $("#attend_status_user_id").val(user_id);
+        $("#attend_status_user_id1").val(user_id);
+
+
+        //this function will trigger if the user click the log out butto
+        //this will call the function eraseCookie to clear the data from the cookie variable in the local browser
+        $(document).ready(function(){
+            $("#logout1").click(function(){
+              eraseCookie("user_name");
+              eraseCookie("pwd");
+              eraseCookie("uty");
+              eraseCookie("user_id");
+              alert("Thank you for using the app.");
+              window.location.replace('index.html');
+            });
+        });
+
+      //this used for determining the user type and the position of the user_id
+      //in order to display the specified system components for the specified position of the intern
+      //using the hide() method to hide the website components
+      if(uty == 'Admin')
+      {
+
+        $("#intern_online").hide();
+        $("#view_team_project").hide();
+        $("#view_project").hide();
+        $("#submit_team_project").hide();
+        $("#submit_project").hide();
+        $("#intern_card").hide();
+        $("#view_for_staff").hide();
+        $("#add_for_staff").hide();
+        $("#apply_leave").hide();
+        $("#leave_status").hide();
+        $("#report_for_intern").hide();
+        $("#take_attendance").hide();
+        $("#take_attendance1").hide();
+        $("#weekly_report").hide();
+        $("#announce").hide();
+        $("#intern_only").hide();
+        $("#intern_only1").hide();
+        $("#profile_for_intern").hide();
+        $("#profile_intern_only").hide();
+        $("#take_attendance2").hide();
+        $("#take_attendance3").hide();
+        $("#take_attendance4").hide();
+        document.getElementById("all_att_logs").style.display = 'block';
+        document.getElementById("intern_att_logs").style.display = 'none';
+
+      }
+
+      else if(uty == 'Staff')
+      {
+        $("#intern_online").hide();
+        $("#view_team_project").hide();
+        $("#view_project").hide();
+        $("#submit_team_project").hide();
+        $("#submit_project").hide();
+        $("#intern_card").hide();
+        $("#view_for_admin").hide();
+        $("#add_for_admin").hide();
+        $("#apply_leave").hide();
+        $("#leave_status").hide();
+        $("#report_for_intern").hide();
+        $("#take_attendance").hide();
+        $("#take_attendance1").hide();
+        $("#weekly_report").hide();
+        $("#announce").hide();
+        $("#intern_only").hide();
+        $("#intern_only1").hide();
+        $("#profile_for_intern").hide();
+        $("#profile_intern_only").hide();
+        $("#take_attendance2").hide();
+        $("#take_attendance3").hide();
+        $("#take_attendance4").hide();
+        $("#myDropdown").hide();
+        document.getElementById("all_att_logs").style.display = 'block';
+        document.getElementById("intern_att_logs").style.display = 'none';
+      }else{
+		  if(user_name == undefined){  //if the user_name variabl (which has the data of username of the credentials stored in the cookie) is undefined then
+			  window.location.replace('index.html'); //forces to redirects to the login page
+		  }else{
+            window.location.href='dashboard.html'; //else, redirects to the dashboard page
+          }
+      }
+
+      function webinar_id(data){
+
+      $("#web_id").val(data);
+
+
+      }
+
+
+    </script>
+<script>
+
+ function show1(){
+    document.getElementById('tableshow').style.display ='none';
+    document.getElementById('webinarhide').style.display = 'block';
+    document.getElementById('tablebtn').style.display = 'block';
+    document.getElementById('webinarbtn').style.display ='none';
+    }
+   function show2(){
+      document.getElementById('tableshow').style.display = 'block';
+      document.getElementById('webinarhide').style.display ='none';
+      document.getElementById('tablebtn').style.display = 'none';
+      document.getElementById('webinarbtn').style.display = 'block';
+
+
+
+    }
+    function modal_close1(){
+      $("#modal-attend_stats_close").modal('hide');
+      $('#event_title').val('');
+    }
+    function modal_close2(){
+      $("#modal-attend_stats_open").modal('hide');
+      $('#event_title1').val('');
+    }
+  </script>
+  <script>
+  $(document).ready(function(){
+      $.ajax({    //create an ajax request to display.php
+        type: "GET",
+        url: "api/attend_webinar.php?",
+        dataType: "html",   //expect html to be returned
+        success: function(response){
+
+          $("#webinar_announcement").html(response);
+
+        }
+      });
+
+    });
+    </script>
+    <script>
+      $(document).ready(function(){
+        $.ajax({    //create an ajax request to display.php
+          type: "GET",
+          url: "api/attend_opened_closed_status.php",
+          dataType: "html",   //expect html to be returned
+          success: function(response){
+
+            var response1 = response.split("|");
+            $("#display_event_title").html(response1[1]);
+            if(response1[0] == 2)
+            {
+
+              $("#att_closed").show();
+              document.getElementById('display_event_title').style.color = 'yellow';
+            }
+            else
+            {
+              $("#att_opened").show();
+            }
+          }
+        });
+
+      });
+      </script>
+    <script>
+      //
+      (function() {
+        'use strict';
+        //for the input trapping
+        //if wrong imputs then automatically put a red indicator in the input field
+        //if corrent then the data inputed will be sent to the api for back end process using AJAX
+        window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+           form.addEventListener('submit', function(event) { //event listener submit (when the user clicks the submit button of the form)
+          if (form.checkValidity() === false) {
+          event.preventDefault(); //preventing default events (usually, it stops the page from reloading after submmiting a form)
+          event.stopPropagation();
+          }
+          else {
+
+          event.preventDefault(); //preventing default events (usually, it stops the page from reloading after submmiting a form)
+
+          var url = "api/attended_webinar.php"; //link directory for the api
+            $.post(url, $("#entry-form").serialize(), function(data) {
+            if(data == 2) //if the api sends back data which is "2"
+            {
+              //then
+              $("#modal-webinar_paid").modal('hide');
+                setTimeout( function ( ) { alert( "You are already registered" );  window.location.reload();}, 200 ); //sending alert to the user then reloads with the
+                                                                                                                      //delay of 200 milliseconds after clicking thee alert dialog
+
+            }else
+            {
+              if(data == 1) //if the api sends back data which is "1"
+              {
+                //then
+              $("#modal-webinar_paid").modal('hide');
+              setTimeout( function ( ) { alert( "Your payment is being process" );  window.location.reload();}, 200 );
+              }
+              else
+              {
+                  //then
+                $("#modal-webinar_paid").modal('hide');
+                  setTimeout( function ( ) { alert( "Entry failed!" );  window.location.reload();}, 200 );
+              }
+            }
+
+
+
+          });
+        }
+          form.classList.add('was-validated');
+          }, false);
+        });
+        }, false);
+        })();
+    </script>
+    <script>
+      //front end process similar to the above for the closing the attendance page
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation2');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+           form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+          }
+          else {
+
+          event.preventDefault();
+
+          var url = "api/attend_status2.php";
+            $.post(url, $("#entry-form2").serialize(), function(data) {
+            if(data == 1)
+            {
+
+              $("#modal-attend_stats_close").modal('hide');
+                setTimeout( function ( ) { alert( "Attendance has been closed" );  window.location.reload();}, 200 );
+
+            }else
+            {
+                $("#modal-attend_stats_close").modal('hide');
+                  setTimeout( function ( ) { alert( "Entry failed!" );  window.location.reload();}, 200 );
+
+            }
+
+
+
+          });
+        }
+          form.classList.add('was-validated');
+          }, false);
+        });
+        }, false);
+        })();
+    </script>
+    <script>
+      //front end process similar to the above for the opening the attendance page
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation1');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+           form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+          }
+          else {
+
+          event.preventDefault();
+
+          var url = "api/attend_status1.php";
+            $.post(url, $("#entry-form1").serialize(), function(data) {
+            if(data == 1)
+            {
+
+              $("#modal-attend_stats_open").modal('hide');
+                setTimeout( function ( ) { alert( "Attendance has been opened" );  window.location.reload();}, 200 );
+
+            }else
+            {
+                $("#modal-attend_stats_open").modal('hide');
+                  setTimeout( function ( ) { alert( "Entry failed!" );  window.location.reload();}, 200 );
+
+            }
+
+
+
+          });
+        }
+          form.classList.add('was-validated');
+          }, false);
+        });
+        }, false);
+        })();
+    </script>
+    <script>
+   $(document).ready(function(){
+
+          $('#attend_status_view_all').DataTable( {
+          "ajax": "api/attend_status_view_all.php",
+          "order": [[ 0, "desc" ]],
+          "columns": [
+            { "data": "ID"},
+            { "data": "Name"},
+            { "data": "Action"},
+            { "data": "Date"}
+          ]
+        } );
+
+
+
+      });
+
+      $('#myDropdown .dropdown-menu').on({
+      "click":function(e){
+          e.stopPropagation();
+        }
+    }); ;
+    </script>
+    <script>
+    //front end process for displaying webinar participants using AJAX for communicating the API webinar_participant.php
+    $(document).ready(function(){
+      $('#view_webinar').DataTable( {
+      "ajax": "api/webinar_participant.php?id=" + user_id,
+      "order": [[ 0, "desc" ]],
+      "columns": [
+        { "data": "Participant"},
+        { "data": "Title"},
+        { "data": "Status"}
+      ]
+    } );
+
+
+
+      });
+    </script>
+<script>
+//this front end javascript was used for displaying overall data of all intern to the attendance system
+//some variable name came from the minified version of this file so i try to not to modify its name because it can destablise the page if theres one a mistype of it
+$(function () {
+  //declaring the variable name
+  var ana_prog,mcc_prog,uP,cP,uT,cT,JF,MA,MJ,JA,SO,ND,JFa,MAa,MJa,JAa,SOa,NDa,H1,H2,H3,H4,H5,V1,V2,V3,V4,V5;
+  var Unassigned;
+  var Ongoing;
+  var Offboarding;
+  var Completed;
+  var Terminated;
+  var Information_Technology;
+  var Mechanical_Engineering;
+  var Mechatronics_Engineering;
+  var Industrial_Engineering;
+  var Petroleum_Engineering;
+  var Electrical_Engineering;
+  var Electronics_Engineering;
+  var Industrial_Technology;
+  var Civil_Engineering;
+  var Sales_And_Marketing_Department;
+  var Operations_Department;
+  var Creative_Team_Department;
+  var Business_Development_Department;
+  var Liaison_Department;
+  var Client_Relations_Department;
+  var Social_Media_Marketing_Department;
+  var Human_Resources_Department;
+  var Quality_Control_Department;
+  var Learning_and_Development_Department;
+  var Manager1;
+  var General_Manager;
+  var Supervisor;
+  var Officer_in_Charge;
+  var Over_all_Officer_in_Charge;
+  var MCC;
+  var Anafara;
+  var Visvis;
+  var Num_Admins;
+  var Num_Staffs;
+  var Num_Interns;
+  var Num_Users;
+
+  //grabbing the data in json format using AJAX to the API called intern_information.php
+  $.ajax({
+    type: "GET",
+    async: false,
+    url: "api/intern_information.php",
+    success: function(data){
+        var result = JSON.parse(data);
+
+        mcc_prog = result.mcc_on_progress; //mcc interns on progress
+        ana_prog = result.ana_on_progress; //anafara interns on progress
+        H5 = result.fivehundred_plus_mcc; //mcc interns that has 500+ hours
+        H4 = result.fourhundred_plus_mcc; //mccinterns that has 400+ hours
+        H3 = result.threehundred_plus_mcc; //mccinterns that has 300+ hours
+        H2 = result.twohundred_plus_mcc; //mcc interns that has 200+ hours
+        H1 = result.onehundred_plus_mcc; //mcc interns that has 100+ hours
+        V5 = result.fivehundred_plus_vis; //visvis interns that has 500+ hours
+        V4 = result.fourhundred_plus_vis; //visvis interns that has 400+ hours
+        V3 = result.threehundred_plus_vis; //visvis interns that has 300+ hours
+        V2 = result.twohundred_plus_vis;//visvis interns that has 200+ hours
+        V1 = result.onehundred_plus_vis;// visvis interns that has 100+ hours
+
+        //number of bugs/issue recorded
+        //fixed
+        JF = result.jan_feb; //january-febuary
+        MA = result.mar_apr; //march-april
+        MJ = result.may_jun; //may-june
+        JA = result.jul_aug; //july-august
+        SO = result.sept_oct; //september-october
+        ND = result.nov_dec; //november-december
+        //pending
+        JFa = result.jan_feba; //january-febuary
+        MAa = result.mar_apra; //march-april
+        MJa = result.may_juna; //may-june
+        JAa = result.jul_auga;  //july-august
+        SOa = result.sept_octa; //september-october
+        NDa = result.nov_deca; //november-december
+
+        uP = result.unchecked_project;
+        cP = result.checked_project;
+        uT = result.unchecked_team;
+        cT = result.checked_team;
+	      Unassigned = result.unassigned;
+        Ongoing = result.ongoing;
+        Offboarding = result.offboarding;
+        Completed = result.completed;
+        Terminated = result.terminated;
+        Information_Technology = result.information_technology;
+        Mechanical_Engineering = result.mechanical_engineering;
+        Mechatronics_Engineering = result.mechatronics_engineering;
+        Industrial_Engineering = result.industrial_engineering;
+        Petroleum_Engineering = result.petroleum_engineering;
+        Electrical_Engineering = result.electrical_engineering;
+        Electronics_Engineering = result.electronics_engineering;
+        Industrial_Technology = result.industrial_technology;
+        Civil_Engineering = result.civil_engineering;
+        Sales_And_Marketing_Department = result.sales_and_marketing_department;
+        Operations_Department = result.operations_department;
+        Creative_Team_Department = result.creative_team_department;
+        Business_Development_Department = result.business_development_department;
+        Liaison_Department = result.liaison_department;
+        Client_Relations_Department = result.client_relations_department;
+        Social_Media_Marketing_Department = result.social_media_marketing_department;
+        Human_Resources_Department = result.human_resource_department;
+        Quality_Control_Department = result.quality_control_department;
+        Learning_and_Development_Department = result.learning_and_development_department;
+        Manager1 = result.manager1;
+        General_Manager = result.general_manager;
+        Supervisor = result.supervisor;
+        Officer_in_Charge = result.officer_in_charge;
+        Over_all_Officer_in_Charge = result.over_all_officer_in_charge;
+        MCC = result.mcc;
+        Anafara = result.anafara;
+        Visvis = result.visvis;
+        Num_Admins = result.total_admins;
+        Num_Staffs = result.total_staffs;
+        Num_Interns = result.total_interns;
+        Num_Users = result.total_users;
+    }
+
+ });
+//this code is a component for building an ApexCharts
+//ApexCharts is a javascript module that generates a ApexCharts
+//just googlee it for more clarifications
+var intern_status = [Unassigned, Ongoing, Offboarding, Completed, Terminated];
+    var options1 = {
+  chart: {
+  height: 300,
+  type: 'bar'
+  },
+  series: [{
+  name: 'Total',
+  data: intern_status,
+  }],
+  xaxis: {
+  categories: ['Unassigned','Ongoing','Offboarding','Completed','Terminated']
+  },
+  colors: ["#0071BD"],
+      legend: {
+        show: false,
+      },
+  fill: {
+        opacity: 1,
+      },
+
+}
+
+var department1 = [Information_Technology, Mechanical_Engineering, Mechatronics_Engineering, Industrial_Engineering, Petroleum_Engineering, Electrical_Engineering, Electronics_Engineering, Industrial_Technology, Civil_Engineering, mcc_prog];
+    var options2 = {
+  chart: {
+    height: 450,
+    type: "line",
+    stacked: true
+  },
+  dataLabels: {
+    enabled: false
+  },
+  colors: ["#FF1654", "#0071BD"],
+  series: [{
+  name: 'Total',
+  data: department1,
+  }],
+  xaxis: {
+  categories: ['Information Technology','Mechanical Engineering','Mechatronics Engineering','Industrial Engineering', 'Petroleum Engineering','Electrical Engineering','Electronics Engineering', 'Industrial Technology','Civil Engineering', 'Intern-On-Progress']
+  },
+  yaxis: [
+    {
+
+      axisTicks: {
+        show: true
+      },
+      axisBorder: {
+        show: true,
+        color: "#0071BD",
+        width: 4
+
+      },
+      labels: {
+        style: {
+          colors: "#0071BD"
+        }
+      },
+    }
+  ],
+  stroke: {
+    curve: 'smooth',
+    width: [4, 4]
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: "20%"
+    }
+  },
+  colors: ["#0071BD"],
+      legend: {
+        show: false,
+      },
+  fill: {
+        opacity: 1,
+      }
+
+}
+
+var department2 = [Sales_And_Marketing_Department, Operations_Department, Creative_Team_Department, Business_Development_Department, Liaison_Department, Client_Relations_Department, Social_Media_Marketing_Department, Human_Resources_Department, Quality_Control_Department, Learning_and_Development_Department, Manager1, General_Manager, Supervisor, Officer_in_Charge, Over_all_Officer_in_Charge, ana_prog];
+    var options3 = {
+  chart: {
+    height: 450,
+    type: "line",
+    stacked: true
+  },
+  dataLabels: {
+    enabled: false
+  },
+  colors: ["#FF1654", "#0071BD"],
+  series: [{
+  name: 'Total',
+  data: department2,
+  }],
+  xaxis: {
+  categories: ['Sales And Marketing','Operations','Creative Team','Business Development', 'Liaison','Client Relations','Social Media Marketing', 'Human Resources', 'Quality Control','Learning and Development','Manager','General Manager','Supervisor','Officer-in-Charge','Over all Officer-in-Charge', 'Intern-On-Progress']
+  },
+  yaxis: [
+    {
+
+      axisTicks: {
+        show: true
+      },
+      axisBorder: {
+        show: true,
+        color: "#0071BD",
+        width: 4
+
+      },
+      labels: {
+        style: {
+          colors: "#0071BD"
+        }
+      },
+    }
+  ],
+  stroke: {
+    curve: 'smooth',
+    width: [4, 4]
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: "20%"
+    }
+  },
+  colors: ["#0071BD"],
+      legend: {
+        show: false,
+      },
+  fill: {
+        opacity: 1,
+      }
+
+}
+
+var company = [MCC, Anafara, Visvis];
+    var options4 = {
+  chart: {
+  height: 300,
+  type: 'bar'
+  },
+  series: [{
+  name: 'Total',
+  data: company,
+  }],
+  xaxis: {
+  categories: ['MCC','Anafara Corporation','VisVis Travel & Tours']
+  },
+  colors: ["#0071BD"],
+      legend: {
+        show: false,
+      },
+  fill: {
+        opacity: 1,
+      }
+
+}
+
+$("#total_admin").html(Num_Admins);
+$("#total_Staff").html(Num_Staffs);
+$("#total_intern").html(Num_Interns);
+$("#total_user").html(Num_Users);
+
+var chart1 = new ApexCharts(document.querySelector("#chart-tasks-overview1"), options1);
+var chart2 = new ApexCharts(document.querySelector("#chart-tasks-overview3"), options2);
+var chart3 = new ApexCharts(document.querySelector("#chart-tasks-overview4"), options3);
+var chart4 = new ApexCharts(document.querySelector("#chart-tasks-overview2"), options4);
+
+chart1.render();
+chart2.render();
+chart3.render();
+chart4.render();
+
+
+    var options5 = {
+        chart: {
+        height: 350,
+        type: 'pie'
+        },
+        series:[cP, uP],
+        labels: ['Already Checked', 'To be Check'],
+        colors: ["#0071BD","#E91E63"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        },
+
+    }
+
+    var uPro = new ApexCharts(document.querySelector("#uProject"), options5);
+    uPro.render();
+
+    var options6 = {
+        chart: {
+        height: 350,
+        type: 'pie'
+        },
+        series:[cT, uT],
+        labels: ['Already Checked', 'To be Check'],
+        colors: ["#0071BD","#E91E63"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        },
+
+
+    }
+
+    var uTeam = new ApexCharts(document.querySelector("#uTeam"), options6);
+    uTeam.render();
+
+    var options7 = {
+        chart: {
+        height: 350,
+        type: 'donut'
+        },
+        series:[H1, H2, H3, H4, H5],
+        labels: ['below 100 hrs remaining', '200+ hrs remaining', '300+ hrs remaining', '400+ hrs remaining', '500+ hrs remaining'],
+        colors: ["green","orange","yellow","blue","red"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        colors: ['#008000', '#ffa500', '#ffff00','#0000ff','#ff0000']
+
+        },
+        plotOptions: {
+            pie: {
+                donut: {
+                    labels: {
+                        show: true,
+                    }
+                }
+            }
+        }
+
+    }
+
+    var mccIntern = new ApexCharts(document.querySelector("#mccIntern"), options7);
+    mccIntern.render();
+
+    var options8 = {
+        chart: {
+        height: 350,
+        type: 'donut'
+        },
+        series:[V1, V2, V3, V4, V5],
+        labels: ['below 100 hrs remaining', '200+ hrs remaining', '300+ hrs remaining', '400+ hrs remaining', '500+ hrs remaining'],
+        colors: ["green","orange","yellow","blue","red"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        colors: ['#008000', '#ffa500', '#ffff00','#0000ff','#ff0000']
+        },
+        plotOptions: {
+            pie: {
+                donut: {
+                    labels: {
+                        show: true,
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    var anaIntern = new ApexCharts(document.querySelector("#anaIntern"), options8);
+    anaIntern.render();
+
+var options9 = {
+  chart: {
+    height: 450,
+    type: "line",
+    stacked: true
+  },
+  dataLabels: {
+    enabled: false
+  },
+  colors: ["#FF1654", "#0071BD"],
+  series: [
+    {
+      name: "Pending",
+      data: [JFa, MAa, MJa, JAa, SOa, NDa]
+    },
+    {
+      name: "Already Fixed",
+      data: [JF, MA, MJ, JA, SO, ND]
+    }
+  ],
+  stroke: {
+    curve: 'smooth',
+    width: [4, 4]
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: "20%"
+    }
+  },
+  xaxis: {
+    categories: ['Jan - Feb', 'Mar - Apr', 'May - Jun',  'Jul - Aug', 'Sep - Oct' , 'Nov - Dec']
+  },
+  yaxis: [
+    {
+
+      axisTicks: {
+        show: true
+      },
+      axisBorder: {
+        show: true,
+        color: "#0071BD",
+        width: 4
+
+      },
+      labels: {
+        style: {
+          colors: "#0071BD"
+        }
+      },
+    }
+  ],
+  legend: {
+    horizontalAlign: "left",
+    offsetX: 40
+  }
+};
+
+    var report_issue = new ApexCharts(document.querySelector("#report_issue"), options9);
+    report_issue.render();
+
+});
+</script>
+<script>
+$(document).ready(function(){
+      $.ajax({    //create an ajax request to display.php
+        type: "GET",
+        url: "api/activeEvent.php",
+        dataType: "html",   //expect html to be returned
+        success: function(response){
+
+          if(response > 0)
+          {
+              document.getElementById('display_calendar_event_title').style.display = 'block';
+          }
+
+        }
+      });
+
+      $.ajax({    //create an ajax request to display.php
+        type: "GET",
+        url: "api/activeEventToday.php",
+        dataType: "html",   //expect html to be returned
+        success: function(response){
+
+          if(response > 0)
+          {
+              document.getElementById('display_calendar_event_today').style.display = 'block';
+          }
+        }
+      });
+  });
+  </script>
+<script>
+  //this code is used for updating the active status of the user for example
+  //facebook user that can be find inactive minutes ago or it will help user to retain an active status in the online users page
+    $.ajax({
+			type: "POST",
+			url: "api/updateActivityAtt.php?id="+user_name,
+			success: function(){}
+
+		});
+        function online(){
+            $.ajax({
+				type: "POST",
+				url: "api/updateOnline.php?id="+user_name,
+				success: function(){
+				}
+
+			});
+        }
+		setInterval(function(){
+			online();
+		},30000);
+</script>
+<script>
+    //this front end script grabs the data of the all the user requesting for offboarding from the database using the AJAX and the API request_change_status_view_list.php
+		$(document).ready(function(){
+
+				$('#view_requesting').DataTable( {
+				"ajax": "api/request_change_status_view_list.php",
+				"pageLength": 5,
+				"lengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, 'All'],
+                ],
+				"columns": [
+					{ "data": "ID"},
+					{ "data": "Name"},
+					{ "data": "Date"},
+					{
+					  "data": null,
+					  render:function(data, type, row)
+                      {
+                      return "<a onclick='approve_status("+ data['ID'] +")'><button data-bs-toggle='modal' data-bs-target='#modal-leader' class='btn-sm btn-gradient-success me-2' type='submit' value='Approve'>Approve</button></a>"
+
+                      },
+
+					}
+				]
+			} );
+
+		});
+      //this front end script grabs the data of the specific user requesting for offboarding from the database using the AJAX and the API get_status_data_requesting_intern.php
+			function approve_status(data12343){
+
+			$("#user_acc_id_intern").val(data12343);
+
+			 $.get("api/get_status_data_requesting_intern.php?id=" + data12343, function(data){
+                      // Display the returned data in browser
+
+                var status_data = data.split("|");
+
+                $("#fullname1234").html(status_data[1] + ' ' + status_data[2] + ' ' + status_data[3]);
+                $("#output12345").attr('src',"api/uploaded_profile/" + status_data[4]);
+
+                $("#required_hrs").val(status_data[5]);
+                $("#render_hrs").val(status_data[6]);
+                $("#remining_hrs").val(status_data[7]);
+                $("#deducted_hrs").val(status_data[8]);
+                $("#total_render_hrs").val(status_data[9]);
+                $("#penalty_hrs").val(status_data[10]);
+                $("#user_acc_id_inten_detail").val(status_data[11]);
+                $("#user_acc_id_timesheet").val(status_data[0]);
+            });
+
+		}
+    //this function used to open the specific intern details who requesting an ooffboarding
+		function intern_details(data) {
+
+            window.open('view_intern_details.html?id='+ data,'_blank');
+
+		  }
+      //this function used to open the specific intern timesheet who requesting an ooffboarding
+		  function intern_timesheet(data) {
+
+            window.open('view_time_sheet.html?id='+ data,'_blank');
+
+		  }
+
+  </script>
+
+  <script>
+    //this javascript used for apprroving intern's request for offboaring
+		(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+			var forms = document.getElementsByClassName('needs-validation1321321');
+			var validation = Array.prototype.filter.call(forms, function(form) {
+			   form.addEventListener('submit', function(event) {
+
+          $("#cancelBtn2313").hide();
+          $("#add_project1212").prop("disabled", true);
+          $("#add_project1212").html(
+          "<i class='spinner-border spinner-border-sm text-light' role='status' aria-hidden='true' ></i> <strong style='color:#f7f7f7'>&nbspLOADING</strong> "
+          );
+
+				if (form.checkValidity() === false) {
+          $("#cancelBtn2313").show();
+          $("#add_project1212").prop("disabled", false);
+							$("#add_project1212").html(
+								"<span  role='status' aria-hidden='true'></span> <strong style='color:#f7f7f7'>Confirm</strong>"
+							);
+
+				event.preventDefault();
+				event.stopPropagation();
+				}
+				else {
+
+				event.preventDefault();
+
+				var url = "api/approved_requesting_intern.php";
+					$.post(url, $("#entry-form12312").serialize(), function(data) {
+				 if(data == 1)
+         {
+          setTimeout( function ( )
+						{
+              $("#cancelBtn2313").show();
+							$("#add_project1212").prop("disabled", false);
+							$("#add_project1212").html(
+								"<span  role='status' aria-hidden='true'></span> <strong style='color:#f7f7f7'>Confirm</strong>"
+							);
+						}, 4000 );
+
+                         $("#modal-leader").modal('hide');
+						setTimeout( function ( ) { alert( "Intern Offboarding Status Successfully Approved" );  window.location.replace("main.html");}, 200 );
+
+				}
+				else
+        {
+          setTimeout( function ( )
+						{
+              $("#cancelBtn2313").show();
+							$("#add_project1212").prop("disabled", false);
+							$("#add_project1212").html(
+								"<span  role='status' aria-hidden='true'></span> <strong style='color:#f7f7f7'>Confirm</strong>"
+							);
+						}, 4000 );
+
+						setTimeout( function ( ) { alert( "Entry failed!" ); window.location.reload();}, 4350 );
+
+
+				}
+
+				});
+			}
+				form.classList.add('was-validated');
+				}, false);
+			});
+			}, false);
+			})();
+
+	</script>
+	<script>
+
+
+              $(function () {
+
+              var Shift_1;
+              var Shift_2;
+              var Shift_3;
+              var Shift_4;
+
+              $.ajax({
+            				type: "GET",
+            				async: false,
+            				url: "api/Shift_1.php",
+            				success: function(response){
+            					Shift_1 = response;
+            				}
+
+            			});
+              $.ajax({
+            				type: "GET",
+            				async: false,
+            				url: "api/Shift_2.php",
+            				success: function(response){
+            					Shift_2 = response;
+            				}
+
+            			});
+              $.ajax({
+            				type: "GET",
+            				async: false,
+            				url: "api/Shift_3.php",
+            				success: function(response){
+            					Shift_3 = response;
+            				}
+
+            			});
+              $.ajax({
+            				type: "GET",
+            				async: false,
+            				url: "api/Shift_4.php",
+            				success: function(response){
+            					Shift_4 = response;
+            				}
+
+            			});
+
+            var company = [Shift_1, Shift_2, Shift_3, Shift_4];
+                var options = {
+              chart: {
+              height: 400,
+              type: 'bar'
+              },
+              series: [{
+              name: 'Total',
+              data: company,
+              }],
+              xaxis: {
+              categories: ['8:00AM - 5:00PM','9:00AM - 6:00PM','3:00PM - 12:00AM','MULTIPLE SHIFT']
+              },
+              colors: ["#0071BD"],
+                  legend: {
+                    show: false,
+                  },
+              fill: {
+                    opacity: 1,
+                  },
+
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart-tasks-overview123123"), options);
+
+            chart.render();
+              });
+
+</script>
+<script>
+    function show1(){
+    document.getElementById('tableshow').style.display ='none';
+    document.getElementById('webinarhide').style.display = 'block';
+    document.getElementById('tablebtn').style.display = 'block';
+    document.getElementById('webinarbtn').style.display ='none';
+    }
+   function show2(){
+      document.getElementById('tableshow').style.display = 'block';
+      document.getElementById('webinarhide').style.display ='none';
+      document.getElementById('tablebtn').style.display = 'none';
+      document.getElementById('webinarbtn').style.display = 'block';
+
+
+
+    }
+</script>
+<script>
+  //this is the front end script for grabbing logs of the interns who changed their intern status from databasee
+      $(document).ready(function(){
+
+          $('#view_requesting_logs').DataTable( {
+          "ajax": "api/request_change_status_view_list_logs.php",
+          "pageLength": 5,
+				"lengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, 'All'],
+                ],
+          "columns": [
+            { "data": "ID"},
+            { "data": "Name"},
+            { "data": "Date"},
+            { "data": "Approved/Declined By"},
+            { "data": "Date Approved/Declined"}
+          ]
+        } );
+      });
+
+
+    </script>
+</html>

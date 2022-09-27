@@ -1,0 +1,15 @@
+api configuration guide for the mysql database connections
+
+LOCALHOST/XAMPP
+1. rename the dbconnection (localhost).php into dbconnection.php
+2. do not rename the dbconnection (hosting site).php
+3. to run the system goto localhost/Melham Attendance Tracker v2 (make sure that the apache and mysql module is enabled in XAMPP)
+
+
+HOSTING SITE/LIVE SERVER
+1. rename the dbconnection (hosting site).php into dbconnection.php
+2. do not rename the dbconnection (localhost).php
+3. open the renamed dbconnection.php to the notepad
+4. paste the copied Mysql DB Name, MySQL User Name, MySQL Password, and MySQL Host Name based on the given credentials of your hosting site
+   with the following string format for example: "hostname"
+5. to run the system just go to your (specified domain name)/Melham Attendance Tracker v2

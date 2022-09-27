@@ -1,0 +1,17 @@
+
+
+            .tooltip{
+                width:auto;
+                height:20%;
+                color:black;
+                background:#E5E5E5;
+                position:absolute;
+                z-index:10001;
+                border-radius:5px;
+                top: -300%;
+                left:50%;
+                padding:5px 10px;
+                margin-left:-60px;
+                bottom: 150%;
+                font-size: 15px;
+            }

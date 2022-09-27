@@ -1,0 +1,1 @@
+<?php	date_default_timezone_set('Asia/Manila');	       include("db/dbconnection.php");     $id = $_GET["id"];    $time=time()+1000;    $i=1;    $sql = "UPDATE user_acc SET last_login = '$time' WHERE username = '$id'";    if (mysqli_query($conn, $sql)) {            }        $conn->close();?>

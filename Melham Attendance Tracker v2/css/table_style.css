@@ -1,0 +1,36 @@
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  table * {
+    position: relative;
+  }
+
+  table thead tr {
+    height: 60px;
+    background: #0071BD;
+    font-size: 16px;
+    color: #f7f7f7;
+  }
+
+
+  table td.c,
+  table th.c {
+    text-align: center;
+  }
+  table td.r,
+  table th.r {
+    text-align: center;
+  }
+
+  blockquote {
+    color: white;
+    text-align: center;
+  }

@@ -1,0 +1,1 @@
+<?php	include("db/dbconnection.php");        $sql = "SELECT status FROM project WHERE status='To be check'";    $result = $conn->query($sql);	$row = mysqli_num_rows($result);		echo $row;	$conn->close();?>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Attendance Tracker V2</title>
+    <link
+      href="https://use.fontawesome.com/releases/v5.0.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/design3.css">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+     <!-- Sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+		
+      @media
+      only screen and (max-width: 767px) {
+      table, thead, tbody, th, td, tr {
+        border-collapse: collapse;
+        display: block;
+        table-layout: auto;
+        width: auto;  
+      }
+      thead tr {
+        position: absolute;
+        top: -500px;
+        left: -500px;
+      }
+      table.dataTable tr td:first-child{
+        border-left:2px solid #ffffff;   
+      }
+
+      table.dataTable tr td:last-child{
+        border-right:2px solid #ffffff;   
+      }
+      table.dataTable tr td{
+        border-bottom: 1px solid #eee !important;  
+      }
+      table.dataTable tfoot th, table.dataTable tfoot td {
+            display: none;
+        }
+      tr { border: 1px solid #ccc; }
+      td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 200px;
+        margin-left: 150px;
+      }
+      td:before {
+        position: absolute;
+        top: 12px;
+        left: 6px;
+        width: 20px;
+        padding-right: 40px;
+        white-space: nowrap;
+        margin-left: -150px;
+    
+      }
+      
+    
+        /*
+        Label the data
+        You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+        */
+        td:nth-of-type(1):before { content: "ID"; }
+        td:nth-of-type(2):before { content: "Team Name"; }
+        td:nth-of-type(3):before { content: "Task Name"; }
+        td:nth-of-type(4):before { content: "Date Assigned"; }
+        td:nth-of-type(5):before { content: "Date Submitted"; }
+        td:nth-of-type(6):before { content: "File Format"; }
+        td:nth-of-type(7):before { content: "G-Drive Link"; }
+      }
+      
+      </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="main.html"><img src="assets/images/logo.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="main.html"><img src="assets/images/logo-mini.png" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        <div class="search-field d-none d-md-block ">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">   
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="search-field d-block d-sm-none">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">   
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="padding: 17px 14px 17px 14px; background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button></a>
+              </div>
+            </div>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture1" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black" id="display_profile_fullname1"></p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+           
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="logout">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+               
+              </a>
+            </li>
+            
+           
+            
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile" id="profile_for_admin">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture" alt="profile">
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2" id="display_profile_fullname"></span>
+                  <span class="text-secondary text-small" id="display_profile_usertype"></span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">
+                <span class="menu-title"><strong>Dashboard</strong></span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="online_today.html">
+                <span class="menu-title"><strong>Online Users</strong></span>
+                <i class="mdi menu-icon" ></i>(<span id="count_online" style="font-weight: bold;">0</span>)
+              </a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="community_forum.html">
+                <span class="menu-title"><strong>Community Forum</strong></span>
+                <i class="mdi mdi-message-text menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title" style="color:#0071BD;font-size: 18px;"><strong>Project</strong></span>
+                <i class="menu-arrow" style="color:#0071BD"></i>
+                <i class="mdi mdi-audiobook menu-icon " style="color:#0071BD"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+				          <li class="nav-item" id="all_project"> <a class="nav-link" href="all_project.html"><strong>All Project</strong></a></li>
+                  <li class="nav-item" id="team_project"> <a class="nav-link" href="team_project.html"><strong>Team Project</strong></a></li>
+                  <li class="nav-item" id="view_team_project"> <a class="nav-link" href="view_team_project.html"><strong>View Team Project</strong></a></li>
+                  <li class="nav-item" id="view_project"> <a class="nav-link" href="view_project.html"><strong>View Project</strong></a></li>
+                  <li class="nav-item" id="submit_team_project"> <a class="nav-link" href="submit_team_project.html"><strong>Submit Team Project</strong></a></li>
+                  <li class="nav-item" id="submit_project"> <a class="nav-link" href="submit_project.html"><strong>Submit Project</strong></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item"  id="manage_team">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+                <span class="menu-title"><strong>Manage Team</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-box menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic5">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_team.html"><strong>View Team</strong></a></li>
+				  <li class="nav-item" > <a class="nav-link" href="add_team.html" ><strong>Add Team</strong></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" id="manage_time">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic6" aria-expanded="false" aria-controls="ui-basic6">
+                <span class="menu-title"><strong>Manage Time</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-timer menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic6">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_hours.html"><strong>View Time</strong></a></li>
+				  <li class="nav-item" > <a class="nav-link" href="add_hours.html" ><strong>Add Hours</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_intern">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+                <span class="menu-title"><strong>Manage Intern</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-book-multiple menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic3">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_intern.html"><strong>View Intern</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item"  id="manage_user">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                <span class="menu-title"><strong>Manage User</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-contacts menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic2">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item" id="view_for_admin"> <a class="nav-link" href="view_user.html"><strong>View User</strong></a></li>
+                  <li class="nav-item" id="add_for_admin"> <a class="nav-link" href="add_user.html"><strong>Add User</strong></a></li>
+                  <li class="nav-item" id="view_for_staff"> <a class="nav-link" href="view_user_intern.html"><strong>View User</strong></a></li>
+                  <li class="nav-item" id="add_for_staff"> <a class="nav-link" href="add_intern.html"><strong>Add User</strong></a></li>
+                </ul>
+              </div>
+				
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                <span class="menu-title"><strong>Intern leave</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-exit-to-app menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic1">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item" id="apply_leave"> <a class="nav-link" href="apply_leave.html"><strong>Apply Leave</strong></a></li>
+                  <li class="nav-item" id="leave_status"> <a class="nav-link" href="leave_status.html"><strong>Leave Status</strong></a></li>
+                  <li class="nav-item" id="pending"> <a class="nav-link" href="pending.html"><strong>Pending</strong></a></li>
+                  <li class="nav-item" id="logs"> <a class="nav-link" href="leave_logs.html"><strong>Logs</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="webinar">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                <span class="menu-title"><strong>Webinar</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-web menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic4">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_webinar.html"><strong>View Webinar</strong></a></li>
+                  <li class="nav-item" > <a class="nav-link" href="add_webinar.html"><strong>Add Webinar</strong></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" id="permission">
+              <a class="nav-link" href="permission.html">
+                <span class="menu-title"><strong>Permission</strong></span>
+                <i class="mdi mdi-clipboard-outline menu-icon"></i>
+              </a>
+            </li>
+              <li class="nav-item" id="university_docs">
+              <a class="nav-link" href="view_submitted_university_documents.html">
+                <span class="menu-title"><strong>Intern University Docs</strong></span>
+                <i class="mdi mdi-library-books menu-icon"></i>
+              </a>
+            </li>  
+            <li class="nav-item" id="report_for_admin">
+              <a class="nav-link" href="report_for_admin.html">
+                <span class="menu-title"><strong>Report</strong></span>
+                <i class="mdi mdi-alert-box menu-icon"></i>
+              </a>
+            </li>
+           <li class="nav-item" id="report_for_intern">
+              <a class="nav-link" href="report_for_intern.html">
+                <span class="menu-title"><strong>Report</strong></span>
+                <i class="mdi mdi-alert-box menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item sidebar-actions">
+              <span class="nav-link">
+                <div class="border-bottom" id="take_attendance">
+                  <h6 class="font-weight-normal mb-3">Take Attendance</h6>
+                </div>
+				<a href="take_attendance.html" id="take_attendance1" class="btn btn-block btn-lg btn-gradient-info mt-4">
+                   Attendance
+                  </a>
+                <div class="mt-4">
+                  <div class="border-bottom">
+                    <p class="text-secondary">Documentation</p>
+                  </div>
+                </div>
+              </span>
+            </li>
+            <li class="nav-item" id="developers">
+              <a class="nav-link" href="developers.html">
+                <span class="menu-title"><strong>Developers</strong></span>
+                <i class="mdi mdi-group menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item" id="smtp_guide" style="display: none">
+              <a class="nav-link" href="smtp_guide.html">
+                <span class="menu-title"><strong>SMTP GUIDE</strong></span>
+                <i class="mdi mdi-email menu-icon"></i>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon text-white me-2" style="background-color:#0071BD;box-shadow: 0px 3px 8.3px 0.7px rgb(16, 130, 206);">
+                  <i class="mdi mdi-audiobook"></i>
+                </span> MANAGE PROJECT
+              </h3>
+          </div>
+         
+		   <div class="col-lg-12 grid-margin stretch-card" style="margin: auto;">
+                <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                  <div class="card-body">
+                    <center><h4 class="card-title">TEAM PROJECT</h4></center>
+                    <br>
+                    
+          <br><br>
+                    <div class="table-responsive">
+                      <table class="table card-table table-vcenter text-nowrap datatable" id="view">
+                        <thead>
+                          <tr>
+                            
+                          <th>ID</th>
+                          <th>Team Name</th>
+                          <th>Leader Email</th>
+                          <th>Leader Name</th>
+                          
+                          <th>Task Name</th>
+                          <th>Date Assigned</th>
+                          <th>Date Submitted</th>
+                          <th>File Format</th>
+                          <th>G-Drive Link</th>
+                          <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                              <th >ID</th>
+                              <th>Team Name</th>
+                              <th>Leader Email</th>
+                              <th>Leader Name</th>
+                
+                              <th>Task Name</th>
+                              <th>Date Assigned</th>
+                              <th >Date Submitted</th>
+                              <th>File Format</th>
+                              <th>G-Drive Link</th>
+                              <th>Action</th>
+                          </tr>
+                      </tfoot>
+                      </table>
+                  </div>
+                    
+                </div>
+               
+              </div>
+          <!-- content-wrapper ends -->
+
+              
+        </div>
+
+                <br>
+                 <div class="col-12" >
+                    <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                        <div class="card-body">
+                        <center><h4 class="card-title">CHECKED TEAM PROJECT</h4></center>
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter text-nowrap datatable" id="view1">
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>Team Name</th>
+                                <th>Leader Email</th>
+                                <th>Leader Name</th>
+                                
+                                <th>Task Name</th>
+                                <th>Date Assigned</th>
+                                <th>Date Submitted</th>
+                                <th>File Format</th>
+                                <th>G-Drive Link</th>
+                                <th>Status</th>
+                                <th>Checked By</th>
+                                <th>Date Checked</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                    </div>  
+          
+          <div class="modal modal-blur fade" id="check" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                        <div class="modal-status bg-success"></div>
+            
+                        <div class="modal-body" style="padding: 3rem;">
+                        <h3 class="modal-title w-100 text-center">Are you sure to signed this team project? </h3>
+                            
+                        <form  id="check-form" method="POST" action="api/update_check_team_project.php" class="check_project" novalidate>
+                        <input type="hidden" class="form-control" name="project_id" id="project_id" required>
+                        <input type="hidden" class="form-control" name="check_by" id="check_by" required>
+                        <div style="line-height:30%;">
+                            <br>
+                        </div>
+                        </div>
+                        <div class="modal-footer" style="border-top: 1px solid #ffffff;">                 
+                            <div style="margin: auto;">
+                            <button type="submit" class="btn btn-gradient-info me-2"><strong style="color:#f7f7f7">YES</strong></button>
+                        </form>
+                            <a onclick='HideCheckModal();' class="btn btn-gradient-dark me-2" id="no" ><strong style="color:#f7f7f7">NO</strong>
+                                
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js "></script>
+    <script src="assets/js/buttons.html5.min.js "></script>
+    <script src="assets/js/pdfmake.min.js "></script>
+    <script src="assets/js/vfs_fonts.js "></script>
+    <script src="assets/js/jszip.min.js "></script>
+    <script src="assets/js/dataTables.buttons.min.js "></script>
+    <script src="assets/js/buttons.colVis.min.js "></script>
+    <link rel="stylesheet" href="assets/js/jquery.dataTables.min.css" >
+    <link rel="stylesheet" href="assets/js/buttons.dataTables.min.css" >
+    <script src="assets/vendors/js/vendor.bundle.base1.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+  <style>
+    div.datatable-wide {
+    padding-left: 0;
+    padding-right: 0;
+    }
+    td{
+          border-bottom: 1px solid #0071BD !important; 
+      }
+       tfoot{
+          display: table-header-group;   
+      }
+      tfoot tr th:first-child{
+          border-left:2px solid #0071BD;   
+      }
+       tfoot tr th:last-child{      
+          border-right:2px solid #0071BD;   
+      }
+      tfoot tr th{
+          border-bottom: 1px solid #0071BD !important; 
+          border-top: 1px solid #0071BD !important; 
+      }
+        </style>
+  <script>
+      $(document).ready(function(){
+            var url = document.URL;
+            var id = url.substring(url.lastIndexOf('=') + 1);
+            
+            
+            $('#view1').DataTable( {
+
+                initComplete: function () {
+                this.api().columns().every( function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+    
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+    
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                } );
+            },
+
+
+            "ajax": "api/get_team_project_log.php?id="+id,
+            "order": [[ 0, "desc" ]],
+            dom: 'Bfrtip', 
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                    columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+            customize: function(doc) {
+            doc.content[1].margin = [ 100, 0, 100, 0 ] //left, top, right, bottom
+            },
+            "columns": [
+                { "data": "ID"},
+                
+                { "data": "Team Name"},
+                { "data": "Email"},
+                { "data": "Leader"},
+                
+                { "data": "Task Name"},
+                { "data": "Date Assigned"},
+                { "data": "Date Submitted"},
+                { "data": "File Format"},
+                { "data": "G-Drive Link"},
+                { "data": "Status"},
+                { "data": "Checked By"},
+                { "data": "Date Checked"},
+            ]
+            });
+      });
+  </script>
+  <script>
+		function getCookie(cName) {
+	    const name = cName + "=";
+	    const cDecoded = decodeURIComponent(document.cookie); //to be careful
+	    const cArr = cDecoded .split('; ');
+	    let res;
+	    cArr.forEach(val => {
+		  if (val.indexOf(name) === 0) res = val.substring(name.length);
+	    })
+	    return res;
+		  }
+				
+		  function eraseCookie(name) {   
+			document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		  }
+		  
+		  var user_name = getCookie('user_name');
+		  var pwd = getCookie('pwd');
+		  var uty = getCookie('uty');
+      var user_id = getCookie('user_id');
+		  //alert(usr + " " + pwd + " " + uty);
+		  $("#check_by").val(user_id);
+		  if(user_name == undefined){
+			  window.location.replace('index.html');
+		  }
+		  
+      $(document).ready(function(){
+            $("#logout").click(function(){
+              eraseCookie("user_name");
+              eraseCookie("pwd");
+              eraseCookie("uty");
+              eraseCookie("user_id");
+              alert("Thank you for using the app.");
+              window.location.replace('index.html');
+            });
+          });
+      
+      if(uty == 'Admin')
+      {
+        $("#view_team_project").hide();
+        $("#view_project").hide();
+        $("#submit_team_project").hide();
+        $("#submit_project").hide();
+        $("#intern_card").hide();
+        $("#view_for_staff").hide();
+        $("#add_for_staff").hide();
+        $("#apply_leave").hide();
+        $("#leave_status").hide();
+        $("#report_for_intern").hide();
+        $("#take_attendance").hide();
+        $("#take_attendance1").hide();
+        
+        document.getElementById("smtp_guide").style.display="block";
+        
+      }
+
+      if(uty == 'Staff')
+      {
+        $("#view_team_project").hide();
+        $("#view_project").hide();
+        $("#submit_team_project").hide();
+        $("#submit_project").hide();
+        $("#intern_card").hide();
+        $("#view_for_admin").hide();
+        $("#add_for_admin").hide();
+        $("#apply_leave").hide();
+        $("#leave_status").hide();
+        $("#report_for_intern").hide();
+        $("#take_attendance").hide();
+        $("#take_attendance1").hide();
+        
+      }
+
+      
+      if(uty == 'Intern')
+      {
+        window.location.replace('main.html');
+      }
+
+      function HideCheckModal(){
+           $('#check').modal('hide');
+       }
+    </script>
+    <script>
+        var url = document.URL;
+        var id = url.substring(url.lastIndexOf('=') + 1);
+      $(document).ready(function(){
+          
+          
+          $('#view').DataTable( {
+
+            initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        },
+
+
+          "ajax": "api/view_all_team_project.php?id="+id,
+          "order": [[ 0, "desc" ]],
+          dom: 'Bfrtip', 
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, ':visible' ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                  columns: ':visible'
+                }
+            },
+            'colvis'
+        ],
+        customize: function(doc) {
+          doc.content[1].margin = [ 100, 0, 100, 0 ] //left, top, right, bottom
+        },
+          "columns": [
+            { "data": "ID"},
+            { "data": "Team Name"},
+            { "data": "Email"},
+            { "data": "Leader"},
+            
+            { "data": "Task Name"},
+            { "data": "Date Assigned"},
+            { "data": "Date Submitted"},
+            { "data": "File Format"},
+            { "data": "G-Drive Link"},
+            { 
+              "data": null,
+              render:function(data, type, row)
+                        {
+                            if(row.Status == 'To be Check')
+                            {
+                                return "<a onclick='UpdateStatus("+ data['ID'] +")'><button  class='btn-sm btn-gradient-success me-2' data-bs-toggle='modal' data-bs-target='#check'>Check</button></a>"
+                            }else{
+                                return "<label class='badge badge-info'><strong>Checked</strong></label>";
+
+                            }
+                          
+                        },
+              
+            }
+            
+          ]
+        } );
+      });
+      function UpdateStatus(data){
+         $("#project_id").val(data);
+      }
+
+
+      (function() {	  
+            'use strict';
+            window.addEventListener('load', function() {		
+                var forms = document.getElementsByClassName('check_project');	
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        else {
+
+                            event.preventDefault();
+                            var url = "api/update_check_team_project.php";
+                            $.post(url, $("#check-form").serialize(), function(data) {
+                            
+                            document.getElementById('no').disabled = 'true';
+
+                            if(data == 1)
+                            {	
+                               $('#check').modal('hide');			
+                             	 swal("Checking success!", "Team project successfully been checked", "success").then(function(){
+                                    window.location.reload();
+                            });			
+                    
+                            }
+                            else 
+                            {
+                               $('#check').modal('hide');		
+                                setTimeout(function () {
+                                    alert("Project checked unsuccessfull!");
+                                }, 200);
+                            }
+                
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script>
+      $(document).ready(function(){
+
+        $.ajax({    //create an ajax request to display.php
+          type: "GET",
+          url: "api/get-current-login-data1.php?id="+ user_id,             
+          dataType: "html",   //expect html to be returned                
+          success: function(response){
+            var response1 = response.split("|");
+            
+            $("#display_profile_fullname").html(response1[1]); 
+            $("#display_profile_fullname1").html(response1[0] + ' ' + response1[1]); 
+            $("#display_profile_usertype").html(response1[2]); 
+            $("#display_profile_picture").attr('src',"api/uploaded_profile/" + response1[3]); 
+            $("#display_profile_picture1").attr('src',"api/uploaded_profile/" + response1[3]); 
+            //alert(response);
+          }
+        });
+
+        
+        
+      });
+      </script>
+<script>
+if(uty == 'Intern' && position == '0')
+{
+        $.ajax({
+				type: "GET",
+				async: false,
+				url: "api/count_staff.php", 				
+				success: function(response){ 
+                    if(response > 99)
+                    {
+                        $("#count_online").html("99+");
+                    }else{
+					    $("#count_online").html(response); 
+                    }
+				}
+				
+			});
+      
+}else{
+        $.ajax({
+				type: "GET",
+				async: false,
+				url: "api/count_online.php", 				
+				success: function(response){ 
+                    if(response > 99)
+                    {
+                        $("#count_online").html("99+");
+                    }else{
+					    $("#count_online").html(response); 
+                    }
+				}
+				
+			});
+      
+}
+
+</script>
+</html>

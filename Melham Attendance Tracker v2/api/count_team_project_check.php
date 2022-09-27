@@ -1,0 +1,1 @@
+<?php	include("db/dbconnection.php");        $sql = "SELECT * FROM team_project,weekly_report WHERE team_project.status='Already Checked' AND weekly_report.status='Already Checked'";    $result = $conn->query($sql);	$row = mysqli_num_rows($result);		echo $row;	$conn->close();?>

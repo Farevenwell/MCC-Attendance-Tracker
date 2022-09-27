@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html id="scrolling_bar_hide" style="overflow: hidden;" lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Attendance Tracker V2</title>
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+     <link
+      href="https://use.fontawesome.com/releases/v5.0.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/design3.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+  </head>
+  <style>
+        ::-webkit-scrollbar{width:9px;background-color:#fff}::-webkit-scrollbar-thumb{background:#0071bd;border-radius:10px}::-webkit-scrollbar-thumb:hover{background:#0364a5}.content-table{border-collapse:collapse;margin:0 auto;font-size:1.1em;max-width:1500px;width:100%;border-radius:5px 5px 0 0;overflow:hidden;box-shadow:0 0 20px rgba(0,0,0,.15)}.content-table thead tr{background-color:#0071bd;color:#fff;text-align:left;font-weight:700}.content-table td,.content-table th{padding:12px 15px}.content-table tbody tr{border-bottom:1px solid #ddd}.content-table tbody tr:nth-of-type(even){background-color:#fff}.content-table tbody tr:last-of-type{border-bottom:2px solid #000}.content-table tbody tr.active-row{font-weight:700;color:#0071bd}@media screen and (max-width:35.5em){table .content-table{display:block}table .content-table tr{height:auto;padding:20px}table .content-table td{margin-top:40px;text-align:center}}.team table{width:100%}.team table,.team td,.team th{border:1px solid #000;border-collapse:collapse}.scrollable{overflow-y:auto;max-height:400px}.hide{display:none}
+    </style>
+  <body>
+        <div id="topbar1" class="container">
+			<i>Loading. This could take a while, please wait...</i>
+		</div>
+        <div style="display:none;" id="sidebar1" class="container">
+			<i>Loading...</i>
+		</div>
+        <div style="display:none;" id="main1" class="container">
+			<i>Loading...</i>
+		</div>
+    <div class="container-scroller">
+      <nav id="topbar" class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row " >
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="main.html"><img src="assets/images/logo.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="main.html" ><img src="assets/images/logo-mini.png" alt="logo" /></a>
+        </div>
+
+        <div class="navbar-menu-wrapper d-flex align-items-stretch" >
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize" >
+            <span class="mdi mdi-menu" ></span>
+          </button>
+        <div class="search-field d-none d-md-block ">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="search-field d-block d-sm-none">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="padding: 17px 14px 17px 14px; background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button></a>
+              </div>
+            </div>
+          </div>
+
+          <ul class="navbar-nav navbar-nav-right">
+
+            <li class="nav-item nav-profile dropdown" id="profile_admin_only">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture_admin1" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black" id="display_profile_fullname_admin1">Loading...</p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+            
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="logout1" style="color:#000000">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+
+              </a>
+            </li>
+
+
+
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar2">
+          <ul class="nav">
+            <li class="nav-item nav-profile" id="profile_for_admin">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture_admin" alt="profile">
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2" id="display_profile_fullname_admin">Loading...</span>
+                  <span class="text-secondary text-small" id="display_profile_usertype">Loading...</span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">
+                <span class="menu-title" style="color:#0071BD;font-size: 18px;"><strong>Dashboard</strong></span>
+                <i class="mdi mdi-home menu-icon" style="color:#0071BD"></i>
+              </a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="online_today.html">
+                <span class="menu-title"><strong>Online Users</strong></span>
+                <i class="mdi menu-icon" ></i>(<span id="count_online" style="font-weight: bold;">0</span>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="community_forum.html">
+                <span class="menu-title"><strong>Community Forum</strong></span>
+                <i class="mdi mdi-message-text menu-icon"></i>
+              </a>
+            </li>
+             <li id="intern_online" class="nav-item">
+              <a class="nav-link" href="team_online_today.html">
+                <span class="menu-title"><strong>Team Monitoring</strong></span>
+                <i class="mdi mdi-account-multiple menu-icon" ></i>
+              </a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title"><strong>Project</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-audiobook menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+				          <li class="nav-item" id="all_project"> <a class="nav-link" href="all_project.html"><strong>All Project</strong></a></li>
+                  <li class="nav-item" id="team_project"> <a class="nav-link" href="team_project.html"><strong>Team Project</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_team">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+                <span class="menu-title"><strong>Manage Team</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-box menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic5">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_team.html"><strong>View Team</strong></a></li>
+				  <li class="nav-item" > <a class="nav-link" href="add_team.html" ><strong>Add Team</strong></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" id="manage_time">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic6" aria-expanded="false" aria-controls="ui-basic6">
+                <span class="menu-title"><strong>Manage Time</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-timer menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic6">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_hours.html"><strong>View Time</strong></a></li>
+				  <li class="nav-item" > <a class="nav-link" href="add_hours.html" ><strong>Add Hours</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_intern">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+                <span class="menu-title"><strong>Manage Intern</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-book-multiple menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic3">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_intern.html"><strong>View Intern</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="manage_user">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                <span class="menu-title"><strong>Manage User</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-contacts menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic2">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item" id="view_for_admin"> <a class="nav-link" href="view_user.html"><strong>View User</strong></a></li>
+                  <li class="nav-item" id="add_for_admin"> <a class="nav-link" href="add_user.html"><strong>Add User</strong></a></li>
+                  <li class="nav-item" id="view_for_staff"> <a class="nav-link" href="view_user_intern.html"><strong>View User</strong></a></li>
+                  <li class="nav-item" id="add_for_staff"> <a class="nav-link" href="add_intern.html"><strong>Add User</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                <span class="menu-title"><strong>Intern leave</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-exit-to-app menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic1">
+                <ul class="nav flex-column sub-menu">
+				    <li class="nav-item" id="pending"> <a class="nav-link" href="pending.html"><strong>Pending</strong></a></li>
+				    <li class="nav-item" id="logs"> <a class="nav-link" href="leave_logs.html"><strong>Logs</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="webinar">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                <span class="menu-title"><strong>Webinar</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-web menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic4">
+                <ul class="nav flex-column sub-menu">
+				  <li class="nav-item" > <a class="nav-link" href="view_webinar.html"><strong>View Webinar</strong></a></li>
+                  <li class="nav-item" > <a class="nav-link" href="add_webinar.html"><strong>Add Webinar</strong></a></li>
+                </ul>
+              </div>
+            </li>
+			<li class="nav-item" id="permission">
+              <a class="nav-link" href="permission.html">
+                <span class="menu-title"><strong>Permission</strong></span>
+                <i class="mdi mdi-clipboard-outline menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item" id="report_for_admin">
+              <a class="nav-link" href="report_for_admin.html">
+                <span class="menu-title"><strong>Report</strong></span>
+                <i class="mdi mdi-alert-box menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item sidebar-actions" >
+              <span class="nav-link">
+                <div class="mt-4">
+                  <div class="border-bottom">
+                    <p class="text-secondary">Documentation</p>
+                  </div>
+                </div>
+              </span>
+            </li>
+            <li class="nav-item" id="developers">
+              <a class="nav-link" href="developers.html">
+                <span class="menu-title"><strong>Developers</strong></span>
+                <i class="mdi mdi-group menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+
+        <div id="main" class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon  text-white me-2"  style="background-color:#0071BD;box-shadow: 0px 3px 8.3px 0.7px rgb(16, 130, 206); ">
+                  <i class="mdi mdi-home" ></i>
+                </span>DASHBOARD
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <div id="myDropdown">
+                     <button  class="badge badge-success" data-bs-toggle="modal" data-bs-target="#modal-attend_stats_close" id="att_opened" style="display: none;">Status: Event not set</button><button class="badge badge-danger " data-bs-toggle="modal" data-bs-target="#modal-attend_stats_open" id="att_closed" style="display: none;" >Status: Already set</button>&nbsp; | &nbsp;
+                      <button   class="badge badge-info dropdown-toggle " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Logs</button>
+                      <div class="dropdown-menu " style="width: 550px !important;height: 100px !important;">
+
+
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="table-responsive" >
+                                    <table class="table card-table table-vcenter text-nowrap datatable" id="attend_status_view_all">
+
+                                      <thead>
+                                        <tr>
+
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                        <th>Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="myTable">
+
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div style="color: #FFFFFF; font: normal 18px arial, sans-serif; background-color: #0071BD; border: #0071BD 5px solid; width: 48.8%; margin: 0 auto; padding: 4px 5px 3px 5px; border-radius: 4px;">
+              <marquee style="font-weight:bold" scrolldelay="120"><center><font id="display_event_title"></font>
+ <font style="color:yellow; display:none" id="display_calendar_event_title">There's new upcoming event, please click the "CALENDAR EVENT" button</font>
+              <font style="color:yellow; display:none" id="display_calendar_event_today">There's an event happening today, please click the "CALENDAR EVENT" button</font>
+              </center></marquee>
+              </div>
+              <br>
+            <div class="row" id="admin_card">
+              <div class="col-md-3 stretch-card grid-margin" >
+                <div class="card card-img-holder text-white " style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Admin</h4>
+                    <h2 class="mb-5" id="total_admin"></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-img-holder text-white" style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Staff</h4>
+                    <h2 class="mb-5" id="total_Staff"></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-img-holder text-white" style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Intern</h4>
+                    <h2 class="mb-5" id="total_intern"></h2>
+                  </div>
+                </div>
+              </div>
+			  <div class="col-md-3 stretch-card grid-margin">
+                <div class="card card-img-holder text-white" style="background-color:#0071BD" >
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total User</h4>
+                    <h2 class="mb-5" id="total_user"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="admin_only">
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">INTERN PROJECT</h4></center>
+                  <div id="uProject"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">TEAM PROJECT</h4></center>
+                  <div id="uTeam"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="row" id="admin_only">
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">LIST OF INTERN STATUS</h4></center>
+                  <div id="chart-tasks-overview1"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">COMPANY</h4></center>
+                  <div id="chart-tasks-overview2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="admin_only">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">MELHAM CONSTRUCTION CORPORATION</h4></center>
+                  <center><h4 class="card-title">INTERN HOURS DATA TODAY</h4></center>
+                  <div id="mccIntern"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body">
+                  <center><h4 class="card-title">ANAFARA CORPORATION AND VISVIS TRAVEL & TOUR</h4></center>
+                  <center><h4 class="card-title">INTERN HOURS DATA TODAY</h4></center>
+                  <div id="anaIntern"></div>
+                </div>
+              </div>
+            </div>
+            </div>
+          <div  id="admin_only1">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+              <div class="card-body" >
+                <center><h4 class="card-title">MELHAM CONSTRUCTION CORPORATION</h4></center>
+                <center><h4 class="card-title">DEPARTMENT</h4></center>
+                <center><div id="chart-tasks-overview3" ></div></center>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div  id="admin_only2">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body" >
+                  <center><h4 class="card-title">ANAFARA CORPORATION AND VISVIS TRAVEL & TOUR</h4></center>
+                  <center><h4 class="card-title">DEPARTMENT</h4></center>
+                  <center><div id="chart-tasks-overview4" ></div></center>
+                </div>
+              </div>
+            </div>
+            </div>
+          <div  id="admin_only2">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+                <div class="card-body" >
+                  <center><h4 class="card-title">REPORTED SYSTEM ISSUE</h4></center>
+                  <center><div id="report_issue" ></div></center>
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+
+            <div class="col-md-6 grid-margin stretch-card" id="announce">
+              <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card">
+
+                <div class="card-body">
+                  <div><button  class="badge badge-success " onclick="show2();" id="tablebtn" style="float: right;"><i class="mdi   mdi-eye"></i></button><button  class="badge badge-success " id="webinarbtn"  onclick="show1();" style="float: right;display: none;"><i class="mdi   mdi-eye-off"></i></button></div>
+                  <center><h4 class="card-title">ANNOUNCEMENT </h4></center>
+                  	<hr style="color:black; border:2px solid;">
+                  <div class="scrollable " id="webinarhide">
+                    <div id="webinar_announcement"></div>
+                </div>
+
+                <div style="display: none;" id="tableshow">
+
+                <div class="table-responsive" >
+                  <table style="overflow-x:auto;" width="98%" class="table card-table table-vcenter text-nowrap datatable" id="view_webinar">
+
+                    <thead>
+                      <tr>
+
+                      <th>Participant</th>
+                      <th>Title</th>
+                      <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="myTable">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+
+            <div class="modal modal-blur fade " id="modal-webinar_paid" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 35%;">
+                <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                  <div class="modal-status bg-success"></div>
+
+                  <div class="modal-body">
+                    <h3 class="modal-title w-100 text-center">CONFIRMATION</h3>
+
+                      <hr >
+
+                    <form  id="entry-form" method="POST" action="api/attended_webinar.php" class="needs-validation" novalidate>
+                    <input type="hidden" class="form-control" name="user_acc_id" id="user_acc_id" required>
+                    <input type="hidden" class="form-control" name="web_id" id="web_id" required>
+
+
+
+                            <label for="payment"><b>MODE OF PAYMENT</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="payment" name="payment" style="border: 1px solid #000000;" placeholder="Mode of Payment" required/>
+                            </div>
+
+                            <br>
+                            <label for="screenshot"><b>PROOF OF PAYMENT</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="screenshot" name="screenshot" style="border: 1px solid #000000;" placeholder="Screeshot Link" required/>
+                            </div>
+
+
+                  </div>
+                  <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                      <div style="margin: auto;">
+                        <button type="submit" class="btn  me-2" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                    </form>
+                        <a href="main.html" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+
+                          </a>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal modal-blur fade " id="modal-attend_stats_close" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 35%;">
+                <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                  <div class="modal-status bg-success"></div>
+
+                  <div class="modal-body">
+                    <h3 class="modal-title w-100 text-center">Are you sure you want close attendance?</h3>
+                    <br>
+                    <form  id="entry-form2" method="POST" action="api/attend_status2.php" class="needs-validation2" novalidate>
+                    <input type="hidden" class="form-control" name="attend_status_user_id" id="attend_status_user_id" required>
+                    <input type="hidden" class="form-control" name="status_close" id="status_close"  value="2" required>
+
+
+
+                            <label for="event_title"><b>EVENT TITLE</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="event_title" name="event_title"  placeholder="Enter title" required/>
+                            </div>
+                            <br>
+                            <label for="event_title"><b>FROM</b></label>
+                            <div >
+                              <input type="datetime-local" class="form-control" id="date_from" name="date_from"  placeholder="Enter title" required/>
+                            </div>
+                            <br>
+                             <label for="event_title"><b>TO</b></label>
+                            <div >
+                              <input type="datetime-local" class="form-control" id="date_to" name="date_to"  placeholder="Enter title" required/>
+                            </div>
+                            <br>
+
+
+                  </div>
+                  <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                      <div style="margin: auto;">
+                        <button type="submit" class="btn  me-2" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                    </form>
+                        <a onClick="modal_close1();" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+
+                          </a>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal modal-blur fade " id="modal-attend_stats_open" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 35%;">
+                <div class="modal-content" style="background-color:#ffffff;border: 1px solid #ffffff;">
+                  <div class="modal-status bg-success"></div>
+
+                  <div class="modal-body">
+                    <h3 class="modal-title w-100 text-center">Are you sure you want open attendance?</h3>
+                    <br>
+                    <form  id="entry-form1" method="POST" action="api/attend_status1.php" class="needs-validation1" novalidate>
+                    <input type="hidden" class="form-control" name="attend_status_user_id1" id="attend_status_user_id1" required>
+                    <input type="hidden" class="form-control" name="status_open1" id="status_open1"  value="1" required>
+
+
+
+                            <label for="event_title1"><b>EVENT TITLE</b></label>
+                            <div >
+                              <input type="text" class="form-control" id="event_title1" name="event_title1"  placeholder="Enter title" required/>
+                            </div>
+
+                            <br>
+
+
+                  </div>
+                  <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                      <div style="margin: auto;">
+                        <button type="submit" class="btn  me-2" style="background-color:#0071BD"><strong style="color:#f7f7f7">Confirm</strong></button>
+                    </form>
+                        <a onClick="modal_close2();" class="btn me-2" style="background-color:#D96876"><strong style="color:#f7f7f7">Cancel</strong>
+
+                          </a>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js "></script>
+    <link rel="stylesheet" href="assets/js/jquery.dataTables.min.css" >
+    <script src="assets/vendors/js/vendor.bundle.base1.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/js/apexcharts.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+    <!-- others plugins -->
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/scripts.js"></script>
+  </body>
+    <script>
+      $(document).ready(function(){$.ajax({type:"GET",url:"api/attend_opened_closed_status.php",dataType:"html",success:function(t){var e=t.split("|");$("#display_event_title").html(e[1]),2==e[0]?($("#att_closed").show(),document.getElementById("display_event_title").style.color="yellow"):$("#att_opened").show()}})});
+      </script>
+  <script>
+ function getCookie(e){const t=e+"=";let n;return decodeURIComponent(document.cookie).split("; ").forEach(e=>{0===e.indexOf(t)&&(n=e.substring(t.length))}),n}function eraseCookie(e){document.cookie=e+"=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"}$.ajax({type:"GET",async:!1,url:"api/count_online.php",success:function(e){e>99?$("#count_online").html("99+"):$("#count_online").html(e)}}),document.addEventListener("DOMContentLoaded",function(e){setTimeout(function(){document.getElementById("topbar1").style.display="none",document.getElementById("topbar").style.opacity="1",document.getElementById("sidebar1").style.display="block",setTimeout(function(){document.getElementById("sidebar1").style.display="none",document.getElementById("sidebar2").style.opacity="1",document.getElementById("main1").style.display="block",setTimeout(function(){document.getElementById("main1").style.display="none",document.getElementById("main").style.opacity="1",document.getElementById("scrolling_bar_hide").style.overflow="auto"},100)},1e3)},1e3)});var user_name=getCookie("user_name"),pwd=getCookie("pwd"),uty=getCookie("uty"),user_id=getCookie("user_id"),position=getCookie("position");if($.ajax({type:"GET",url:"api/get-current-login-data1.php?id="+user_id,dataType:"html",success:function(e){var t=e.split("|");$("#display_profile_fullname_admin").html(t[1]),$("#display_profile_fullname_admin1").html(t[0]+" "+t[1]),$("#display_profile_usertype").html(t[2]),$("#display_profile_picture_admin").attr("src","api/uploaded_profile/"+t[3]),$("#display_profile_picture_admin1").attr("src","api/uploaded_profile/"+t[3])}}),$("#user_acc_id").val(user_id),$("#user_acc_id1").val(user_id),$("#attend_status_user_id").val(user_id),$("#attend_status_user_id1").val(user_id),$(document).ready(function(){$("#logout1").click(function(){eraseCookie("user_name"),eraseCookie("pwd"),eraseCookie("uty"),eraseCookie("user_id"),alert("Thank you for using the app."),window.location.replace("index.html")})}),"Admin"==uty){["#intern_online","#view_team_project","#view_project","#submit_team_project","#submit_project","#intern_card","#view_for_staff","#add_for_staff","#apply_leave","#leave_status","#report_for_intern","#take_attendance","#take_attendance1","#weekly_report","#announce","#intern_only","#intern_only1","#profile_for_intern","#profile_intern_only","#take_attendance2","#take_attendance3","#take_attendance4"].forEach(function(e){$(e).hide()}),document.getElementById("all_att_logs").style.display="block",document.getElementById("intern_att_logs").style.display="none"}else if("Staff"==uty){["#intern_online","#view_team_project","#view_project","#submit_team_project","#submit_project","#intern_card","#view_for_admin","#add_for_admin","#apply_leave","#leave_status","#report_for_intern","#take_attendance","#take_attendance1","#weekly_report","#announce","#intern_only","#intern_only1","#profile_for_intern","#profile_intern_only","#take_attendance2","#take_attendance3","#take_attendance4","#myDropdown"].forEach(function(e){$(e).hide()}),document.getElementById("all_att_logs").style.display="block",document.getElementById("intern_att_logs").style.display="none"}else null==user_name?window.location.replace("index.html"):window.location.href="dashboard.html";function webinar_id(e){$("#web_id").val(e)}
+    </script>
+<script>
+ function show1(){document.getElementById("tableshow").style.display="none",document.getElementById("webinarhide").style.display="block",document.getElementById("tablebtn").style.display="block",document.getElementById("webinarbtn").style.display="none"}function show2(){document.getElementById("tableshow").style.display="block",document.getElementById("webinarhide").style.display="none",document.getElementById("tablebtn").style.display="none",document.getElementById("webinarbtn").style.display="block"}function modal_close1(){$("#modal-attend_stats_close").modal("hide"),$("#event_title").val("")}function modal_close2(){$("#modal-attend_stats_open").modal("hide"),$("#event_title1").val("")}
+  </script>
+  <script>
+  $(document).ready(function(){$.ajax({type:"GET",url:"api/attend_webinar.php?",dataType:"html",success:function(n){$("#webinar_announcement").html(n)}})});
+    </script>
+    <script>
+$(document).ready(function(){$.ajax({type:"GET",url:"api/attend_opened_closed_status.php",dataType:"html",success:function(t){var e=t.split("|");$("#display_event_title").html(e[1]),2==e[0]?($("#att_closed").show(),document.getElementById("display_event_title").style.color="yellow"):$("#att_opened").show()}})});
+      </script>
+    <script>
+   !function(){"use strict";window.addEventListener("load",function(){var e=document.getElementsByClassName("needs-validation");Array.prototype.filter.call(e,function(e){e.addEventListener("submit",function(a){if(!1===e.checkValidity())a.preventDefault(),a.stopPropagation();else{a.preventDefault();$.post("api/attended_webinar.php",$("#entry-form").serialize(),function(e){2==e?($("#modal-webinar_paid").modal("hide"),setTimeout(function(){alert("You are already registered"),window.location.reload()},200)):1==e?($("#modal-webinar_paid").modal("hide"),setTimeout(function(){alert("Your payment is being process"),window.location.reload()},200)):($("#modal-webinar_paid").modal("hide"),setTimeout(function(){alert("Entry failed!"),window.location.reload()},200))})}e.classList.add("was-validated")},!1)})},!1)}();
+    </script>
+    <script>
+    !function(){"use strict";window.addEventListener("load",function(){var t=document.getElementsByClassName("needs-validation2");Array.prototype.filter.call(t,function(t){t.addEventListener("submit",function(e){if(!1===t.checkValidity())e.preventDefault(),e.stopPropagation();else{e.preventDefault();$.post("api/attend_status2.php",$("#entry-form2").serialize(),function(t){1==t?($("#modal-attend_stats_close").modal("hide"),setTimeout(function(){alert("Attendance has been closed"),window.location.reload()},200)):($("#modal-attend_stats_close").modal("hide"),setTimeout(function(){alert("Entry failed!"),window.location.reload()},200))})}t.classList.add("was-validated")},!1)})},!1)}();
+    </script>
+    <script>
+    !function(){"use strict";window.addEventListener("load",function(){var t=document.getElementsByClassName("needs-validation1");Array.prototype.filter.call(t,function(t){t.addEventListener("submit",function(e){if(!1===t.checkValidity())e.preventDefault(),e.stopPropagation();else{e.preventDefault();$.post("api/attend_status1.php",$("#entry-form1").serialize(),function(t){1==t?($("#modal-attend_stats_open").modal("hide"),setTimeout(function(){alert("Attendance has been opened"),window.location.reload()},200)):($("#modal-attend_stats_open").modal("hide"),setTimeout(function(){alert("Entry failed!"),window.location.reload()},200))})}t.classList.add("was-validated")},!1)})},!1)}();
+    </script>
+    <script>
+   $(document).ready(function(){$("#attend_status_view_all").DataTable({ajax:"api/attend_status_view_all.php",order:[[0,"desc"]],columns:[{data:"ID"},{data:"Name"},{data:"Action"},{data:"Date"}]})}),$("#myDropdown .dropdown-menu").on({click:function(a){a.stopPropagation()}});
+    </script>
+    <script>
+    $(document).ready(function(){$("#view_webinar").DataTable({ajax:"api/webinar_participant.php?id="+user_id,order:[[0,"desc"]],columns:[{data:"Participant"},{data:"Title"},{data:"Status"}]})});
+    </script>
+<script>
+$(function(){var q1,e,n,a,r,t,i,o,s,l,c,g,m,d,_,h,p,u,f,v,y,C,x,w,T,E,S,k,M,b,O,A,D,q,B,I,G,uP,cP,uT,cT,JF,MA,MJ,JA,SO,ND,JFa,MAa,MJa,JAa,SOa,NDa,H1,H2,H3,H4,H5,V1,V2,V3,V4,V5;$.ajax({type:"GET",async:!1,url:"api/intern_information.php",success:function($){var L=JSON.parse($); H5 = L.fivehundred_plus_mcc, H4 = L.fourhundred_plus_mcc, H3 = L.threehundred_plus_mcc, H2 = L.twohundred_plus_mcc, H1 = L.onehundred_plus_mcc,V5 = L.fivehundred_plus_vis, V4 = L.fourhundred_plus_vis, V3 = L.threehundred_plus_vis, V2 = L.twohundred_plus_vis, V1 = L.onehundred_plus_vis, JF = L.jan_feb, MA = L.mar_apr, MJ = L.may_jun, JA = L.jul_aug, SO = L.sept_oct, ND = L.nov_dec, JFa = L.jan_feba, MAa = L.mar_apra, MJa = L.may_juna, JAa = L.jul_auga, SOa = L.sept_octa, NDa = L.nov_deca, uP = L.unchecked_project, cP = L.checked_project, uT = L.unchecked_team, cT = L.checked_team, e=L.unassigned,n=L.ongoing,a=L.offboarding,r=L.completed,t=L.terminated,i=L.information_technology,o=L.mechanical_engineering,s=L.mechatronics_engineering,l=L.industrial_engineering,c=L.petroleum_engineering,g=L.electrical_engineering,m=L.electronics_engineering,d=L.industrial_technology,_=L.civil_engineering,h=L.sales_and_marketing_department,p=L.operations_department,u=L.creative_team_department,f=L.business_development_department,v=L.liaison_department,y=L.client_relations_department,q1=L.auxiliary_department,C=L.social_media_marketing_department,x=L.human_resource_department,w=L.quality_control_department,T=L.learning_and_development_department,E=L.manager1,S=L.general_manager,k=L.supervisor,M=L.officer_in_charge,b=L.over_all_officer_in_charge,O=L.mcc,A=L.anafara,D=L.visvis,q=L.total_admins,B=L.total_staffs,I=L.total_interns,G=L.total_users}});var L={chart:{height:300,type:"bar"},series:[{name:"Total",data:[e,n,a,r,t]}],xaxis:{categories:["Unassigned","Ongoing","Offboarding","Completed","Terminated"]},yaxis: [{axisTicks: {show: true},labels: {style: {colors: "#0071BD"}},}],colors:["#0071BD"],legend:{show:!1},fill:{opacity:1}},R={chart:{height:400,type:"area"},dataLabels: {enabled: false},series:[{name:"Total",data:[i,o,s,l,c,g,m,d,_]}],xaxis:{categories:["Information Technology","Mechanical Engineering","Mechatronics Engineering","Industrial Engineering","Petroleum Engineering","Electrical Engineering","Electronics Engineering","Industrial Technology","Civil Engineering"]},yaxis: [{axisTicks: {show: true},axisBorder: {show: true,color: "#0071BD",width: 4},labels: {style: {colors: "#0071BD"}},}],colors:["#0071BD"],legend:{show:!1},fill:{opacity:1}},V={chart:{height:400,type:"area"},dataLabels: {enabled: false},series:[{name:"Total",data:[h,p,u,f,v,y,C,x,w,T,E,S,k,q1,M,b]}],xaxis:{categories:["Sales And Marketing","Operations","Creative Team","Business Development","Liaison","Client Relations","Social Media Marketing","Human Resources","Quality Control","Learning and Development","Manager","General Manager","Supervisor","Auxiliary","Officer-in-Charge","Over all Officer-in-Charge"]},  yaxis: [{axisTicks: {show: true},axisBorder: {show: true,color: "#0071BD",width: 4},labels: {style: {colors: "#0071BD"}},}],colors:["#0071BD"],legend:{show:!1},fill:{opacity:1}},j={chart:{height:300,type:"bar"},series:[{name:"Total",data:[O,A,D]}],xaxis:{categories:["MCC","Anafara Corporation","VisVis Travel & Tours"]},yaxis: [{axisTicks: {show: true},labels: {style: {colors: "#0071BD"}},}],colors:["#0071BD"],legend:{show:!1},fill:{opacity:1}};$("#total_admin").html(q),$("#total_Staff").html(B),$("#total_intern").html(I),$("#total_user").html(G);var H=new ApexCharts(document.querySelector("#chart-tasks-overview1"),L),J=new ApexCharts(document.querySelector("#chart-tasks-overview3"),R),N=new ApexCharts(document.querySelector("#chart-tasks-overview4"),V),P=new ApexCharts(document.querySelector("#chart-tasks-overview2"),j);H.render(),J.render(),N.render(),P.render()
+    
+    var options = {
+        chart: {
+        height: 350,
+        type: 'pie'
+        },
+        series:[cP, uP],
+        labels: ['Already Checked', 'To be Check'],
+        colors: ["#0071BD","#E91E63"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        },
+   
+    }
+
+    var uPro = new ApexCharts(document.querySelector("#uProject"), options);
+    uPro.render();
+    
+    var options1 = {
+        chart: {
+        height: 350,
+        type: 'pie'
+        },
+        series:[cT, uT],
+        labels: ['Already Checked', 'To be Check'],
+        colors: ["#0071BD","#E91E63"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        },
+        
+   
+    }
+
+    var uTeam = new ApexCharts(document.querySelector("#uTeam"), options1);
+    uTeam.render();
+
+    var options3 = {
+        chart: {
+        height: 350,
+        type: 'donut'
+        },
+        series:[H1, H2, H3, H4, H5],
+        labels: ['below 100 hrs remaining', '200+ hrs remaining', '300+ hrs remaining', '400+ hrs remaining', '500+ hrs remaining'],
+        colors: ["green","orange","yellow","blue","red"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        colors: ['#008000', '#ffa500', '#ffff00','#0000ff','#ff0000']
+        
+        },
+        plotOptions: {
+            pie: {
+                donut: {
+                    labels: {
+                        show: true,
+                    }
+                }
+            }
+        }
+   
+    }
+
+    var mccIntern = new ApexCharts(document.querySelector("#mccIntern"), options3);
+    mccIntern.render();
+
+    var options4 = {
+        chart: {
+        height: 350,
+        type: 'donut'
+        },
+        series:[V1, V2, V3, V4, V5],
+        labels: ['below 100 hrs remaining', '200+ hrs remaining', '300+ hrs remaining', '400+ hrs remaining', '500+ hrs remaining'],
+        colors: ["green","orange","yellow","blue","red"],
+        legend: {
+        show: true,
+        },
+        fill: {
+        opacity: 1,
+        colors: ['#008000', '#ffa500', '#ffff00','#0000ff','#ff0000']
+        },
+        plotOptions: {
+            pie: {
+                donut: {
+                    labels: {
+                        show: true,
+                    }
+                }
+            }
+        }
+        
+   
+    }
+
+    var anaIntern = new ApexCharts(document.querySelector("#anaIntern"), options4);
+    anaIntern.render();
+    
+var options = {
+  chart: {
+    height: 450,
+    type: "line",
+    stacked: true
+  },
+  dataLabels: {
+    enabled: false
+  },
+  colors: ["#FF1654", "#0071BD"],
+  series: [
+    {
+      name: "Pending",
+      data: [JFa, MAa, MJa, JAa, SOa, NDa]
+    },
+    {
+      name: "Already Fixed",
+      data: [JF, MA, MJ, JA, SO, ND]
+    }
+  ],
+  stroke: {
+    curve: 'smooth',
+    width: [4, 4]
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: "20%"
+    }
+  },
+  xaxis: {
+    categories: ['Jan - Feb', 'Mar - Apr', 'May - Jun',  'Jul - Aug', 'Sep - Oct' , 'Nov - Dec']
+  },
+  yaxis: [
+    {
+      
+      axisTicks: {
+        show: true
+      },
+      axisBorder: {
+        show: true,
+        color: "#0071BD",
+        width: 4
+        
+      },
+      labels: {
+        style: {
+          colors: "#0071BD"
+        }
+      },
+    }
+  ],
+  legend: {
+    horizontalAlign: "left",
+    offsetX: 40
+  }
+};
+
+    var report_issue = new ApexCharts(document.querySelector("#report_issue"), options);
+    report_issue.render();
+ 
+});
+</script>
+<script>
+$(document).ready(function(){$.ajax({type:"GET",url:"api/activeEvent.php",dataType:"html",success:function(e){e>0&&(document.getElementById("display_calendar_event_title").style.display="block")}}),$.ajax({type:"GET",url:"api/activeEventToday.php",dataType:"html",success:function(e){e>0&&(document.getElementById("display_calendar_event_today").style.display="block")}})});
+  </script>
+<script>
+    function online(){$.ajax({type:"POST",url:"api/updateOnline.php?id="+user_name,success:function(){}})}$.ajax({type:"POST",url:"api/updateActivityAtt.php?id="+user_name,success:function(){}}),setInterval(function(){online()},3e4);
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+
+#main, #sidebar2, #topbar{
+	
+	opacity:0;
+	
+}
+#loading img{
+  position:absolute;
+  text-align: center;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.container{
+  position:absolute;
+  text-align: center;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.container i{
+    padding-top:200px;
+    font-size: 20px;
+}
+      /* width */
+      ::-webkit-scrollbar {
+        width: 9px;
+        background-color:#ffffff
+      }
+      
+    
+       
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #0071BD; 
+        border-radius: 10px;
+      }
+      
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0364a5; 
+      }

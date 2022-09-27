@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/bea467c0c7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+	<link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+
+     <!-- Eye design CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+        const button = new Crate({
+            server: '966515338927804416',
+            channel: '966515338927804419',
+            defer: true
+        })
+        setInterval(() => {
+             button.options.color = "#FFFFFF".replace(/F/g, () => {
+                return (~~(Math.random() * 16)).toString(16)
+            })
+        }, 1000)
+
+        crate.notify('Hi! If you have any concern regarding the sign up or login, just chat in here. Available from 8:00 AM to 5:00 PM only!')
+    </script>
+    <title>Attendance Tracker V2</title>
+  </head>
+  <style>
+	 .input-field select {
+		background: none;
+		outline: none;
+		border: none;
+		line-height: 1;
+		font-weight: 600;
+		font-size: 1.1rem;
+		color: #333;
+		width:400px;
+		margin-right:42px;
+		}
+
+	  </style>
+  <body>
+    <div style="display:none" id="mobileNotification" class="alert">
+        <strong>EYES HERE!</strong> We urge everyone to not use temporarily the attendance tracker android app for their time in and time out as there are some bugs that need to be fixed. In the meantime, please use the website. Thanks and sorry for the inconvenience.
+    </div>
+    <div class="container">
+
+      <div class="forms-container">
+        <div class="signin-signup">
+
+          <form  class="sign-in-form" enctype="multipart/form-data" id="entry-form" method="POST" >
+
+			<img src="assets/images/company_logo.png" alt="Logo" style="width: 100px; height: 100px; border: 2px solid white; border-radius: 100px;">
+            <br>
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" id="user_name" name="user_name" placeholder="Email" required/>
+            </div>
+            <div class="input-field">
+              <i class="far fa-eye " id="togglePassword"></i>
+              <input type="password"  id="pwd" name="pwd" placeholder="Password" required/>
+            </div>
+                <input type="checkbox" id="rememberChkBox" style="" name="rememberChkBox" value="rememberMe">
+                <label id="remem" style="">Remember me</label>
+            <a href="#" id="forgot" style="" onclick="show1();">Forgot Password?</a>
+            <button type="submit" data-sitekey="6LcHyZofAAAAACtd6nsFGVdYE0wLafcjpBCv6Z9s" data-callback='onSubmit' class="btn solid g-recaptcha" id="submit_id_login"><strong>LOGIN</strong></button>
+          </form>
+          <form class="sign-up-form" enctype="multipart/form-data" id="entry-form1" method="POST">
+		  <img src="assets/images/company_logo.png" alt="Logo" style="width: 100px; height: 100px; border: 2px solid white; border-radius: 100px;">
+            <br>
+            <h2 class="title">Sign up</h2>
+			<div class="tab">
+				    <div class="input-field">
+					  <i class="fa-solid fa-id-card"></i>
+					  <input type="number" placeholder="Application ID" id="app_id" name="app_id" oninput="this.className = ''" required/>
+					</div>
+					<div class="input-field">
+					  <i class="fas fa-user"></i>
+					  <input type="text" placeholder="First Name" id="firstname" name="firstname"  oninput="this.className = ''" required/>
+					</div>
+					<div class="input-field">
+					  <i class="fas fa-user"></i>
+					  <input type="text" placeholder="Middle Initial (N/A if none)" id="middle_name" name="middle_name" oninput="this.className = ''" required/>
+					</div>
+					<div class="input-field">
+					  <i class="fas fa-user"></i>
+					  <input type="text" placeholder="Last Name" id="lastname" name="lastname" oninput="this.className = ''" required/>
+					</div>
+			</div>
+
+			<div class="tab">
+					<div class="input-field">
+					  <i class="fas fa-envelope"></i>
+					  <input type="email" placeholder="Email" id="email" name="email" oninput="this.className = ''" required/>
+					</div>
+					<div class="input-field">
+					  <i class="fas fa-lock"></i>
+					  <input type="text" placeholder="Mobile No." id="phone" name="phone" oninput="this.className = ''" required/>
+					</div>
+					<div class="input-field">
+					<i class="fa fa-birthday-cake"></i>
+					    <input type="text" onblur="(this.type='text')" name="birthdate" id="birthdate" placeholder="mm/dd/yyyy" oninput="this.className = ''" autocomplete="off" required/>
+					</div>
+					<div class="input-field">
+					 <i class="fa fa-venus-mars"></i>
+					  	<select  placeholder="Gender" name="sex" id="sex"  oninput="this.className = ''"  required="">
+					  	<option value="" disabled selected>Select Gender</option>
+						<option value="Female">Female</option>
+						<option value="Male">Male</option>
+						<option value="Other">Other</option>
+						</select>
+					</div>
+			</div>
+
+			<div class="tab">
+					<div class="input-field">
+					  <i class="fa fa-street-view"></i>
+					  <input type="text" placeholder=" Streets"  id="street" name="street"oninput="this.className = ''" required/>
+					</div>
+					<div class="input-field">
+						<i class="fa fa-house-user"></i>
+						<input type="text" placeholder=" Barangay" id="barangay" name="barangay" oninput="this.className = ''" required/>
+					  </div>
+					<div class="input-field">
+						 <i class="fa fa-building-o"></i>
+						<input type="text" placeholder=" City" id="city" name="city" oninput="this.className = ''" required/>
+					  </div>
+					  <div class="input-field">
+						<i class="fa fa-map-marker"></i>
+						<input type="text" placeholder=" Province" id="province" name="province" oninput="this.className = ''" required/>
+					  </div>
+			</div>
+
+			<div class="tab">
+				<div class="input-field">
+					  <i class="fa fa-gift"></i>
+					  <select  placeholder="Civil Status" name="civil_status" id="civil_status"  oninput="this.className = ''"  required="">
+					  	<option value="" disabled selected>Select Civil Status</option>
+                    	<option value="Single" >Single</option>
+                    	<option value="Married">Married</option>
+                    	<option value="Divorced">Divorced</option>
+                        <option value="Widowed">Widowed</option>
+					</select>
+				</div>
+				<div class="input-field">
+					<i class="fa-solid fa-church"></i>
+					<input type="text" placeholder="Religion" id="religion" name="religion" oninput="this.className = ''" required/>
+				  </div>
+				  <div class="input-field">
+					<i class="fa fa-building-o"></i>
+						<select  placeholder="Select Company" name="company" id="company"  oninput="this.className = ''"  required="">
+						<option value="" disabled selected>Select Company</option>
+						<option value="Melham Construction Corporation" >Melham Construction Corporation</option>
+						<option value="Anafara Corporation">Anafara Corporation</option>
+						<option value="VisVis Travel & Tours">VisVis Travel & Tours</option>
+					  	</select>
+				  </div>
+				  <div class="input-field">
+					<i class="fa fa-vector-square"></i>
+						<select  placeholder="Department" name="department" id="department"  oninput="this.className = ''"  required="">
+							<option value="" disabled selected>Department</option>
+							<option value="Information Technology" >Information Technology Related Courses</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Mechatronics Engineering">Mechatronics Engineering</option>
+                            <option value="Industrial Engineering">Industrial Engineering</option>
+                            <option value="Petroleum Engineering">Petroleum Engineering</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Electronics Engineering">Electronics Engineering</option>
+                            <option value="Industrial Technology">Industrial Technology</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Sales And Marketing Department">Sales And Marketing Department</option>
+                            <option value="Operations Department">Operations Department</option>
+                            <option value="Creative Team Department">Creative Team Department</option>
+                            <option value="Business Development Department">Business Development Department</option>
+                            <option value="Liaison Department">Liaison Department</option>
+                            <option value="Client Relations Department">Client Relations Department</option>
+                            <option value="Marketing Department">Marketing Department</option>
+                            <option value="Social Media Marketing Department">Social Media Marketing Department</option>
+                            <option value="Quality Control Department">Quality Control Department</option>
+                            <option value="Manager">Manager</option>
+                            <option value="General Manager">General Manager</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Officer-in-Charge">Officer-in-Charge</option>
+                            <option value="Over all Officer-in-Charge">Over all Officer-in-Charge</option>
+                            <option value="Human Resources Department">Human Resources Department</option>
+                            <option value="UIP-Human Resources Department">UIP-Human Resources Department</option>
+                            <option value="UIP-Learning and Development Department">UIP-Learning and Development Department</option>
+                            <option value="UIP-Auxiliary Department">UIP-Auxiliary Department</option>
+                            <option value="Intern-On-Process">Intern-On-Process</option>
+                            <option value="Accounting and Finance Department">Accounting and Finance Department</option>
+                            <option value="MCC DigiTex">MCC DigiTex</option>
+
+
+					  	</select>
+				  </div>
+			</div>
+
+			<div class="tab">
+				<div class="input-field">
+					<i class="fa-solid fa-calendar"></i>
+					<input type="text" onblur="(this.type='text')" name="start_date" id="start_date" placeholder="Start Date" oninput="this.className = ''" autocomplete="off" required/>
+				  </div>
+				  <div class="input-field">
+					<i class="fa-solid fa-calendar"></i>
+					<input type="text" onblur="(this.type='text')" name="estimated_end_date" id="estimated_end_date" placeholder="End Date" oninput="this.className = ''" autocomplete="off" required/>
+				  </div>
+				  <div class="input-field">
+					<i class="fa fa-clock-o"></i>
+					<select placeholder="Start Shift" name="start_shift" id="start_shift" oninput="this.className = ''" required="">
+						<option selected disabled value="">Start Shift</option>
+						<option value="8:00 AM">8:00 AM</option>
+						<option value="9:00 AM">9:00 AM</option>
+						<option value="3:00 PM">3:00 PM</option>
+					  </select>
+				  </div>
+				  <div class="input-field">
+					<i class="fa fa-clock-o"></i>
+
+						<input type="text" placeholder="End Shift" name="end_shift" id="end_shift" oninput="this.className = ''"readonly required/>
+				  </div>
+
+		</div>
+			<div class="tab">
+				  <div id="sched1" class="input-field">
+					<i class="fa fa-calendar"></i>
+					<select placeholder="Select Duty Schedule" name="schedule" id="schedule" oninput="this.className = ''" required="">
+						<option value="" disabled selected>Select OJT Schedule</option>
+						<option value="Monday/Wednesday/Friday">Monday, Wednesday, Friday</option>
+						<option value="Tuesday/Thursday">Tuesday, Thursday</option>
+						<option value="Monday/Tuesday/Wednesday/Thursday/Friday">Monday to Friday</option>
+						<option hidden value="other">Other</option>
+					  </select>
+					  <select style="display:none;" placeholder="Select Duty Schedule" name="schedule1" id="schedule1" oninput="this.className = ''" required="">
+						<option value="" disabled selected>Select OJT Schedule</option>
+						<option value="Monday/Wednesday/Friday">Monday, Wednesday, Friday</option>
+						<option value="Tuesday/Thursday">Tuesday, Thursday</option>
+						<option value="Tuesday/Thursday/Saturday">Tuesday, Thursday, Saturday</option>
+						<option value="Monday/Tuesday/Wednesday/Thursday/Friday">Monday to Friday</option>
+						<option value="Monday/Tuesday/Wednesday/Thursday/Friday/Saturday">Monday to Saturday</option>
+						<option hidden value="other">Other</option>
+					  </select>
+				  </div>
+                 <div class="input-field">
+					<i class="fa-solid fa-school"></i>
+					<input type="text" placeholder="School Name/University" name="school_name" id="school_name" oninput="this.className = ''" required/>
+				  </div>
+                 <div class="input-field">
+					<i class="fa-solid fa-business-time"></i>
+					<input type="number" placeholder="No. of Required Hours" name="required_hours" id="required_hours" oninput="this.className = ''" required/>
+				  </div>
+
+				  <div class="input-field">
+				 <i class="fa-solid fa-link"></i>
+				  <input type="text" placeholder="Google Drive Link" name="gdrive_link" id="gdrive_link" oninput="this.className = ''" required/>
+				</div>
+            </div>
+            <div class="tab">
+                <center><h3>Upload your 2x2 picture here</h3></center>
+                <div class="input-field">
+				    <i class="fa-solid fa-image"></i>
+				        <input style="margin-top:15px;" type="file" onchange="loadFile(event)" placeholder="Upload 2x2 picture" name="profile_pic" id="profile_pic" oninput="this.className = ''" required/>
+                </div>
+                <center><div class="g-recaptcha center" data-callback="recaptchaCallback" data-expired-callback="recaptchaExpiredCallback" data-sitekey="6LcTcaAfAAAAAODNjjKaia4mdix9ppbqsMOM_TLN"></div></center>
+            </div>
+
+			<div style="overflow:auto;">
+					  <div style="float:right;">
+						<button type="button" class="btn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+						<button type="button" class="btn" id="nextBtn" onclick="nextPrev(1)">Next</button>
+						 <button type="submit" id="submit_id" class="btn">Sign Up</button>
+					  </div>
+					</div>
+
+					<!-- Circles which indicates the steps of the form: -->
+					<div style="text-align:center;margin-top:40px;">
+					  <span class="step"></span>
+					  <span class="step"></span>
+					  <span class="step"></span>
+					  <span class="step"></span>
+					  <span class="step"></span>
+                      <span class="step"></span>
+                      <span class="step"></span>
+					</div>
+          </form>
+        </div>
+		<div style="display: none;" class="signin-signup" id="forgot_pass_form">
+
+			<form action="requestReset.php" class="sign-in-form3" enctype="multipart/form-data"  method="POST" >
+
+			  <img src="assets/images/company_logo.png" alt="Logo" style="width: 100px; height: 100px; border: 2px solid white; border-radius: 100px;">
+			  <br>
+			  <h2 class="title">Enter your email</h2>
+			  <div class="input-field">
+				<i class="fas fa-user"></i>
+				<input type="text" id="user_name" name="email" placeholder="Email" required/>
+			  </div>
+
+			  <a href="#" style="margin-right: 350px;color:#ffffff;"  onclick="show2();">Login Here</a>
+			  <button type="submit" class="btn solid" id="submit_forgot_pass"><strong>Submit</strong></button>
+
+			</form>
+			</div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New here ?</h3>
+            <p>
+              Please create your account for attendance tracker here!
+            </p>
+            <button class="btn transparent" id="sign-up-btn">
+              Sign up
+            </button>
+            <br><br>
+            <a href="index.html?attendance-mobile-version-is-not-yet-available"><img border="0" alt="" src="assets/images/116086122.png" width="175" height="50"></a>
+          </div>
+          <img src="img/welcome.svg" class="image" alt="" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>One of us ?</h3>
+            <p>
+              Please login in here if you have an existing account!
+            </p>
+            <button class="btn transparent" id="sign-in-btn">
+              Sign in
+            </button>
+            <br><br>
+            <a href="index.html?attendance-mobile-version-is-not-yet-available"><img border="0" alt="" src="assets/images/116086122.png" width="175" height="50"></a>
+          </div>
+          <img src="img/wave.svg" class="image" alt="" />
+        </div>
+      </div>
+    </div>
+	<script src="assets/js/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <script src="assets/js/md5.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+		<script>
+            alertify.set('notifier','position', 'top-center');
+
+			function show1(){
+			$("#entry-form").hide();
+			document.getElementById('forgot_pass_form').style.display = 'block';
+			}
+			function show2(){
+			$("#entry-form").show();
+			document.getElementById('forgot_pass_form').style.display ='none';
+			}
+
+
+
+
+            $('#forgot_pass_form').submit(function() {
+
+               $("#submit_forgot_pass").prop("disabled", true);
+               $("#submit_forgot_pass").html("<span class='fa fa-refresh fa-spin' role='status' aria-hidden='true'></span>  &nbspRequesting...");
+
+            });
+
+
+
+
+			</script>
+
+
+
+
+
+
+
+	<script>
+
+function setCookie(e,t,n){let i=new Date;i.setTime(i.getTime()+12*n*60*60*1e3);const s="expires="+i.toUTCString();document.cookie=e+"="+t+"; "+s+"; path=/"}function getCookie(e){const t=e+"=";let n;return decodeURIComponent(document.cookie).split("; ").forEach(e=>{0===e.indexOf(t)&&(n=e.substring(t.length))}),n}function timeselect(){var e=document.getElementById("start_shift"),t=e.options[e.selectedIndex].text;"8:00 AM"==t&&(document.getElementById("end_shift").value="5:00 PM"),"9:00 AM"==t&&(document.getElementById("end_shift").value="6:00 PM"),"3:00 PM"==t&&(document.getElementById("end_shift").value="12:00 AM")}function onSubmit(e){var t=document.getElementsByClassName("sign-in-form");Array.prototype.filter.call(t,function(e){if($("#submit_id_login").prop("disabled",!0),$("#submit_id_login").html("<span class='fa fa-refresh fa-spin' role='status' aria-hidden='true'></span>  &nbspLoading..."),!1===e.checkValidity())alert("false");else{$.post("api/check-user.php",$("#entry-form").serialize(),function(e){if("Access Denied"==e)setTimeout(function(){$("#submit_id_login").prop("disabled",!1),$("#submit_id_login").html("<span  role='status' aria-hidden='true'></span> LOGIN")},1e3),grecaptcha.reset(),setTimeout(function(){alertify.error("Invalid username or password, please try again! Note: please double check your credentials and avoid putting spaces")},1000);else if(2==e)setTimeout(function(){$("#submit_id_login").prop("disabled",!1),$("#submit_id_login").html("<span  role='status' aria-hidden='true'></span> LOGIN")},1e3),grecaptcha.reset(),setTimeout(function(){alertify.error("Your account has been Terminated.")},1000);else if(6==e)setTimeout(function(){$("#submit_id_login").prop("disabled",!1),$("#submit_id_login").html("<span  role='status' aria-hidden='true'></span> LOGIN")},1e3),grecaptcha.reset(),setTimeout(function(){alertify.error("Email does not exist in our database. Please sign up again!")},1000);else if(3==e)setTimeout(function(){$("#submit_id_login").prop("disabled",!1),$("#submit_id_login").html("<span  role='status' aria-hidden='true'></span> LOGIN")},1e3),grecaptcha.reset(),setTimeout(function(){alertify.error("Your internship has been completed. You have no longer access.")},1000);else if(4==e)setTimeout(function(){$("#submit_id_login").prop("disabled",!1),$("#submit_id_login").html("<span  role='status' aria-hidden='true'></span> LOGIN")},1e3),grecaptcha.reset(),setTimeout(function(){alertify.error("You have been reported multiple times that results of unable to login. Please contact the core team regarding with the issue. Thank you for your understanding!")},1000);else setTimeout(function(){$("#submit_id_login").prop("disabled",!0),$("#submit_id_login").html("<span  role='status' aria-hidden='true'></span> LOGGED IN"),alertify.success("Access Granted!"),setCookie("user_name",e[0].username,1),setCookie("pwd",e[0].passwd,1),setCookie("uty",e[0].usertype,1),setCookie("user_id",e[0].user_acc_id,1),setCookie("position",e[0].position,1),setTimeout(function(){window.location.replace("verification/index.html")},1000)},1e3)})}e.classList.add("was-validated")})}var user_id=getCookie("user_id");null!=user_id&&window.location.replace("verification/index.html");var currentTab=0;function showTab(e){var t=document.getElementsByClassName("tab");t[e].style.display="block",document.getElementById("prevBtn").style.display=0==e?"none":"inline",e==t.length-1?($("#nextBtn").hide(),$("#submit_id").show()):($("#nextBtn").show(),$("#submit_id").hide(),document.getElementById("nextBtn").innerHTML="Next"),fixStepIndicator(e)}function nextPrev(e){
+    var driveLink = document.getElementById('gdrive_link').value;
+    var emailAdd = document.getElementById('email').value;
+
+    if(driveLink.indexOf("https://drive.google.com/") == 0){
+
+    var t=document.getElementsByClassName("tab");return!(1==e&&!validateForm())&&(t[currentTab].style.display="none",(currentTab+=e)>=t.length?(document.getElementById("regForm").submit(),!1):void showTab(currentTab))
+
+	 }else{
+	     if(driveLink == "")
+	     {
+            var t=document.getElementsByClassName("tab");return!(1==e&&!validateForm())&&(t[currentTab].style.display="none",(currentTab+=e)>=t.length?(document.getElementById("regForm").submit(),!1):void showTab(currentTab))
+	     }else{
+	        alert("Invalid GDrive Link");
+	     }
+	 }
+
+    }
+function validateForm(){var e,t,n,i=!0;for(t=(e=document.getElementsByClassName("tab"))[currentTab].getElementsByTagName("input"),a=e[currentTab].getElementsByTagName("select"),n=0;n<a.length;n++)""==a[n].value&&(a[n].className+=" invalid",i=!1);for(n=0;n<t.length;n++)""==t[n].value&&(t[n].className+=" invalid",i=!1);return i&&(document.getElementsByClassName("step")[currentTab].className+=" finish"),i}function fixStepIndicator(e){var t,n=document.getElementsByClassName("step");for(t=0;t<n.length;t++)n[t].className=n[t].className.replace(" active","");n[e].className+=" active"}showTab(currentTab);
+
+	</script>
+	<script>
+            function recaptchaCallback(){$("#submit_id").prop("disabled",!1)}function recaptchaExpiredCallback(){$("#submit_id").prop("disabled",!0)}$(document).ready(function(e){$("#submit_id").prop("disabled",!0),$("#entry-form1").on("submit",function(e){$("#prevBtn").hide(),$("#submit_id").prop("disabled",!0),$("#submit_id").html("<span class='fa fa-refresh fa-spin' role='status' aria-hidden='true'></span>  &nbspLoading..."),e.preventDefault(),$.ajax({url:"api/sign_up.php",type:"POST",data:new FormData(this),contentType:!1,cache:!1,processData:!1,success:function(e){1==e?(setTimeout(function(){$("#prevBtn").show(),$("#submit_id").prop("disabled",!1),$("#submit_id").html("<span  role='status' aria-hidden='true'></span> Submit")},2e3),setTimeout(function(){alertify.success("Successfully Signed Up. Please check your email/spam messages from time to time. Thankyou!")},2400),setTimeout(function(){window.location.reload()},4400)):4==e?(setTimeout(function(){$("#prevBtn").show(),$("#submit_id").prop("disabled",!1),$("#submit_id").html("<span  role='status' aria-hidden='true'></span> Submit")},2e3),setTimeout(function(){alertify.error("Application ID already exist!")},1500)):3==e?(setTimeout(function(){$("#prevBtn").show(),$("#submit_id").prop("disabled",!1),$("#submit_id").html("<span  role='status' aria-hidden='true'></span> Submit")},2e3),setTimeout(function(){alertify.error("Email does not exist. Please try with existing email also yahoo maight not work!")},1500)):0==e?(setTimeout(function(){$("#prevBtn").show(),$("#submit_id").prop("disabled",!1),$("#submit_id").html("<span  role='status' aria-hidden='true'></span> Submit")},2e3),setTimeout(function(){alertify.error("Sign up failed! Please try again.")},500)):2==e&&(setTimeout(function(){$("#prevBtn").show(),$("#submit_id").prop("disabled",!1),$("#submit_id").html("<span  role='status' aria-hidden='true'></span> Submit")},2e3),setTimeout(function(){alertify.error("Email already exists! please try another email.")},1500))},error:function(){}})})});
+		</script>
+
+  </body>
+<style>
+.alert {
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  text-align:center;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+	.hide {
+		  display: none;
+	}
+	/* Mark input boxes that gets an error on validation: */
+	select.invalid {
+	  background-color: #ffdddd;
+	}
+
+
+	/* Style the input fields */
+	input{
+	  border-top-right-radius: 28px;
+	  border-bottom-right-radius: 28px;
+	  font-size: 14px;
+	  border: 1px solid #aaaaaa;
+	  background-color: #f4f6fa;
+	  max-width: 403px;
+	  width: 100%;
+
+	}
+
+	/* Mark input boxes that gets an error on validation: */
+	input.invalid {
+	  background-color: #ffdddd;
+	}
+	#rememberChkBox{
+	    margin-left:-425px;
+	    height: 18px;
+	    width: 20px;
+	}
+	#remem{
+	    font-size: 16.5px;
+	    margin-left:-277px;
+	    bottom: 148px;
+	    color:#ffffff;
+	    position:absolute
+	}
+	#forgot{
+	    position:absolute;
+	    margin-right:-277px;
+	    bottom: 150px;
+	    color:#ffffff;
+	}
+
+	select {
+	 border-top-right-radius: 28px;
+	  border-bottom-right-radius: 28px;
+	  max-width: 403px;
+	  width: 100%;
+	  font-size: 14px;
+	  border: 1px solid #aaaaaa;
+	  background-color: #f4f6fa;
+	}
+    @media screen and (max-width:1080px)
+    {
+	    select {
+		    max-width: 350px;
+		    width: 100%;
+	    }
+        select.invalid {
+		    max-width: 350px;
+		    width: 100%;
+        }
+    	#rememberChkBox{
+	    margin-left:-300px;
+	    height: 18px;
+	    width: 20px;
+	    }
+	    #remem{
+	    font-size: 16.5px;
+	    margin-left:-155px;
+	    bottom: 148px;
+	    color:#ffffff;
+	    position:absolute
+    	}
+	    #forgot{
+
+	    margin-right:-177px;
+	    bottom: 150px;
+	    color:#ffffff;
+	    }
+    }
+
+	/* Mark input boxes that gets an error on validation: */
+	select.invalid {
+	  background-color: #ffdddd;
+	}
+
+	select:required:invalid {
+		color: #aab0be;
+	}
+	/* Hide all steps by default: */
+	.tab {
+	  display: none;
+	}
+
+	/* Make circles that indicate the steps of the form: */
+	.step {
+	  height: 15px;
+	  width: 15px;
+	  margin: 0 2px;
+	  background-color: #bbbbbb;
+	  border: none;
+	  border-radius: 50%;
+	  display: inline-block;
+	  opacity: 0.5;
+	}
+
+	/* Mark the active step: */
+	.step.active {
+	  opacity: 1;
+	}
+
+	/* Mark the steps that are finished and valid: */
+	.step.finish {
+	  background-color: #E0FFFF;
+	}
+	</style>
+
+	 <!-- Hide password -->
+     <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#pwd');
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+    </script>
+
+	 <!-- Date trapping CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet"type="text/css"/>
+
+     <!-- Date trapping function -->
+    <script type="text/javascript">
+        $(function () {
+            $("#start_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() + 1);
+                    $("#estimated_end_date").datepicker("option", "minDate", dt);
+                }
+            });
+            $("#estimated_end_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() - 1);
+                    $("#start_date").datepicker("option", "maxDate", dt);
+                }
+            });
+        });
+
+        $("#birthdate").datepicker();
+
+        $("#mobileNotification").fadeIn();
+
+        setTimeout(function (){
+
+            $("#mobileNotification").fadeOut();
+
+        },20000);
+
+
+
+    </script>
+    <script>
+$(function () {
+
+    if (localStorage.chkbox && localStorage.chkbox != '') {
+        $('#rememberChkBox').attr('checked', 'checked');
+        $('#user_name').val(localStorage.username);
+        $('#pwd').val(localStorage.pass);
+    } else {
+        $('#rememberChkBox').removeAttr('checked');
+        $('#user_name').val('');
+        $('#pwd').val('');
+    }
+
+    $('#rememberChkBox').click(function () {
+
+        if ($('#rememberChkBox').is(':checked')) {
+            // save username and password
+            localStorage.username = $('#user_name').val();
+            localStorage.pass = $('#pwd').val();
+            localStorage.chkbox = $('#rememberChkBox').val();
+        } else {
+            localStorage.username = '';
+            localStorage.pass = '';
+            localStorage.chkbox = '';
+        }
+    });
+});
+    </script>
+    <script>
+$(document).ready(function() {
+    $("#department").on("change", function() {
+        if ($(this).val() == "UIP-Human Resources Department")
+        {
+            $("#schedule").hide();
+            $("#schedule1").show();
+            document.getElementById('schedule1').value="";
+            document.getElementById('schedule').value="other";
+
+        }
+        else if($(this).val() == "UIP-Learning and Development Department")
+        {
+            $("#schedule").hide();
+            $("#schedule1").show();
+            document.getElementById('schedule1').value="";
+            document.getElementById('schedule').value="other";
+        }
+        else if($(this).val() == "UIP-Auxiliary Department")
+        {
+            $("#schedule").hide();
+            $("#schedule1").show();
+            document.getElementById('schedule1').value="";
+            document.getElementById('schedule').value="other";
+        }else
+        {
+            $("#schedule").show();
+            $("#schedule1").hide();
+            document.getElementById('schedule1').value="other";
+            document.getElementById('schedule').value="";
+        }
+    });
+
+    $("#start_shift").on("change", function(){
+        if($(this).val()=="8:00 AM"){
+
+            document.getElementById('end_shift').value ="5:00 PM";
+        }else if($(this).val()=="9:00 AM"){
+            document.getElementById('end_shift').value="6:00 PM";
+        }else if($(this).val()=="3:00 PM"){
+            document.getElementById('end_shift').value="12:00 AM";
+        }
+    });
+});
+    </script>
+
+</html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Attendance Tracker V2</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <link rel="stylesheet" href="css/loading.css">
+    
+     <!-- Sweet alert -->
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+    
+    <style>
+         /* width */
+      ::-webkit-scrollbar {
+        width: 9px;
+        background-color:#ffffff
+      }
+      
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #0071BD; 
+        border-radius: 10px;
+      }
+      
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0364a5; 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+	    <div id="topbar1" class="container">
+			<i>Loading...</i>
+		</div>	
+        <div style="display:none;" id="sidebar1" class="container">
+			<i>Loading...</i>
+		</div>
+        <div style="display:none;" id="main1" class="container">
+			<i>Loading...</i>
+		</div>      
+      <nav id="topbar" class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="main.html"><img src="assets/images/logo.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="main.html"><img src="assets/images/logo-mini.png" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        <div class="search-field d-none d-md-block ">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">   
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="search-field d-block d-sm-none">
+            <div class="d-flex align-items-center h-100">
+              <div class="input-group">   
+                <a href="calendar/event.php">
+                    <button class='btn-lg btn me-6' style="padding: 17px 14px 17px 14px; background-color:#0071BD" ><strong style="color:#f7f7f7">CALENDAR EVENT</strong></button></a>
+              </div>
+            </div>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture1" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black" id="display_profile_fullname1"></p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="logout" style="color:#000000">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                
+              </a>
+            </li>
+            
+            
+            
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar2">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="profile.html" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="assets/images/faces/default.jpg" id="display_profile_picture" alt="profile">
+                  <span class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2" id="display_profile_fullname"></span>
+                  <span class="text-secondary text-small" id="display_profile_intern_status"></span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">
+                <span class="menu-title"><strong>Dashboard</strong></span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+             <li id="all_online" class="nav-item">
+              <a class="nav-link" href="online_today.html">
+                <span class="menu-title"><strong>Online Users</strong></span>
+                <i class="mdi menu-icon" ></i>(<span id="count_online" style="font-weight: bold;">0</span>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="community_forum.html">
+                <span class="menu-title"><strong>Community Forum</strong></span>
+                <i class="mdi mdi-message-text menu-icon"></i>
+              </a>
+            </li>
+             <li id="intern_online" class="nav-item">
+              <a class="nav-link" href="team_online_today.html">
+                <span class="menu-title"><strong>Team Monitoring</strong></span>
+                <i class="mdi mdi-account-multiple menu-icon" ></i>
+              </a>
+            </li>  
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title"><strong>Project</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-audiobook menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item" id="weekly_report"> <a class="nav-link" href="weekly_report.html"><strong>View Weekly Report</strong></a></li>
+                  <li class="nav-item" id="view_team_project"> <a class="nav-link" href="view_team_project.html"><strong>View Team Project</strong></a></li>
+                  <li class="nav-item" id="view_project"> <a class="nav-link" href="view_project.html" ><strong>View Project</strong></a></li>
+                  <li class="nav-item" id="submit_team_project"> <a class="nav-link" href="submit_team_project.html"><strong>Submit Team Project</strong></a></li>
+                  <li class="nav-item" id="submit_project"> <a class="nav-link" href="submit_project.html"><strong>Submit Project</strong></a></li>
+                </ul>
+              </div>
+            </li>
+
+			<li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                <span class="menu-title"><strong>Intern leave</strong></span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-exit-to-app menu-icon "></i>
+              </a>
+              <div class="collapse" id="ui-basic1">
+                <ul class="nav flex-column sub-menu">				
+                  <li class="nav-item"  id="apply_leave"> <a class="nav-link" href="apply_leave.html"><strong>Apply Leave</strong></a></li>
+                  <li class="nav-item" id="leave_status"> <a class="nav-link" href="leave_status.html"><strong>Leave Status</strong></a></li>
+                </ul>
+              </div>
+            </li>
+
+           <li class="nav-item" id="report_for_intern">
+              <a class="nav-link" href="report_for_intern.html">
+                <span class="menu-title"><strong>Report</strong></span>
+                <i class="mdi mdi-alert-box menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item sidebar-actions" >
+              <span class="nav-link">
+                <div class="border-bottom" id="take_attendance">
+                  <h6 class="font-weight-normal mb-3" >Take Attendance</h6>
+                </div>
+                <a href="take_attendance.html" id="take_attendance1" class="btn btn-block btn-lg btn mt-4" style="display: none; background-color:#0071BD" >
+                  <strong style="color:#f7f7f7">ATTENDANCE</strong> 
+                  </a>
+                  <a  href="take_attendance_2.html" id="take_attendance2" class="btn btn-block btn-lg btn mt-4" style="display: none; background-color:#0071BD" >
+                    <strong style="color:#f7f7f7">ATTENDANCE</strong> 
+                            </a>
+                  <a href="take_attendance_3.html" id="take_attendance3" class="btn btn-block btn-lg btn mt-4" style="display: none; background-color:#0071BD" >
+                    <strong style="color:#f7f7f7">ATTENDANCE</strong> 
+                  </a>
+                <div class="mt-4">
+                  <div class="border-bottom">
+                    <p class="text-secondary">Documentation</p>
+                  </div>
+                </div>
+              </span>
+            </li>
+            <li class="nav-item" id="developers">
+              <a class="nav-link" href="developers.html">
+                <span class="menu-title"><strong>Developers</strong></span>
+                <i class="mdi mdi-group menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div id="main" class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon text-white me-2" style="background-color:#0071BD;box-shadow: 0px 3px 8.3px 0.7px rgb(16, 130, 206);">
+                  <i class="mdi mdi-face"></i>
+                </span> MANAGE PROFILE
+              </h3>
+          </div>
+          <center><h4 class="card-title" style="margin: auto;">PROFILE</h4></center>
+              <hr>
+              <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                  <div id="display_profile"></div>
+                  
+
+                </div>
+                
+                
+                <div class="col-md-8 ">
+                  <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;" class="card mb-3">
+                    <div class="card-body">
+                      <center><h4 class="card-title">UPDATE PROFILE</h4></center>
+                      <form enctype="multipart/form-data" id="entry-form" method="POST" action="" >          
+      
+                        <input type="hidden" class="form-control" id="user_acc_id" name="user_acc_id" readonly required>
+                        <div class="form-group">
+                          <label for="profile_pic">PROFILE </label>
+                          
+                          <input type="file" class="form-control" id="profile_pic" name="profile_pic"  accept="image/*" onchange="loadFile(event)" placeholder="upload you profile picture">
+                        
+                        </div>
+            
+                        <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="firstname">FIRST NAME</label>
+                                  <div >
+                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name" required>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="middle_name">MIDDLE NAME</label>
+                                  <div>
+                                    <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Enter Middle Name" required>
+                                  </div>
+                                </div>
+                              </div>
+            
+                              <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="lastname">LAST NAME</label>
+                                  <div>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name" required>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+            
+                        <div class="form-group">
+                         
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label for="street">STREET/BLDG</label>
+                               
+                                <div >
+                                  <input type="text" class="form-control" id="street" name="street" placeholder="Enter Street/Bldg" required>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label for="barangay">BARANGAY</label>
+                                  <div >
+                                    <input type="text" class="form-control" id="barangay" name="barangay" placeholder="Enter barangay" required>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  
+                                  <label for="city">CITY</label>
+                                <div>
+                                  <input type="text" class="form-control" id="city" name="city" placeholder="Enter City" required>
+                                </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label for="city">PROVINCE</label>
+                                  <div>
+                                    <input type="text" class="form-control" id="province" name="province" placeholder="Enter Province" required>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+            
+                            <div class="form-group">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label for="birthdate">BIRTHDATE</label>
+                                      <div >
+                                        <input type="date" class="form-control" style="padding:12px;" id="birthdate" name="birthdate" placeholder="Enter Birthday" required>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label for="religion">RELIGION</label>
+                                      <div>
+                                        <input type="text" class="form-control" id="religion" name="religion" placeholder="Enter Religion" required>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+            
+                                <div class="form-group">
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group row">
+                                          <label for="sex">GENDER</label>
+                                          <div>
+                                            <select class="form-select" style="padding:12px;" placeholder="Select Gender" name="sex" id="sex" required="">
+                                              <option value="" >Select Gender</option>
+                                              <option value="Female" >Female</option>
+                                              <option value="Male">Male</option>
+                                              <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        </div>
+                                      </div>
+                                    
+                                      <div class="col-md-6">
+                                        <div class="form-group row">
+                                          <label for="civil_status">CIVIL STATUS</label>
+                                          <div>
+                                            <select class="form-select" style="padding:12px;" placeholder="Select Civil Status" name="civil_status" id="civil_status" required="">
+                                              <option value="" >Select Civil Status</option>
+                                              <option value="Single" >Single</option>
+                                              <option value="Married">Married</option>
+                                              <option value="Divorced">Divorced</option>
+                                              <option value="Widowed">WIDOWED</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                  </div>  
+                                    <div class="form-group">
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                              <label for="email">EMAIL</label>
+                                              <div >
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter email" readonly required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                              <label for="mobile_number">MOBILE NO.</label>
+                                              <div>
+                                                <input type="text" class="form-control"  id="mobile_number" name="mobile_number" placeholder="Enter Mobile No." required>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="form-group row">
+                                                  <label for="company">COMPANY</label>
+                                                  <div >
+                                                    <select class="form-select" style="padding:12px;" placeholder="Select Company" name="company" id="company"  required="">
+                                                      <option value="" >Select Company</option>
+                                                      <option value="Melham Construction Corporation" >Melham Construction Corporation</option>
+                                                      <option value="Anafara Corporation">Anafara Corporation</option>
+                                                      <option value="Visvis Travel & Tours">VisVis Travel & Tours</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group row">
+                                                  <label for="department">DEPARTMENT</label>
+                                                  <div>
+                                                    <select class="form-select" style="padding:12px;" placeholder="Select Department" name="department" id="department" required="">
+                                                      <option value="" >Select Department</option>
+                                                            <option value="Information Technology" >Information Technology</option>
+                                                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                                            <option value="Mechatronics Engineering">Mechatronics Engineering</option>
+                                                            <option value="Industrial Engineering">Industrial Engineering</option>
+                                                            <option value="Petroleum Engineering">Petroleum Engineering</option>
+                                                            <option value="Electrical Engineering">Electrical Engineering</option>
+                                                            <option value="Electronics Engineering">Electronics Engineering</option>
+                                                            <option value="Industrial Technology">Industrial Technology</option>
+                                                            <option value="Civil Engineering">Civil Engineering</option>
+                                                            <option value="Sales And Marketing Department">Sales And Marketing Department</option>
+                                                            <option value="Operations Department">Operations Department</option>
+                                                            <option value="Creative Team Department">Creative Team Department</option>
+                                                            <option value="Business Development Department">Business Development Department</option>
+                                                            <option value="Liaison Department">Liaison Department</option>
+                                                            <option value="Client Relations Department">Client Relations Department</option>
+                                                            <option value="Social Media Marketing Department">Social Media Marketing Department</option>
+                                                            <option value="Quality Control Department">Quality Control Department</option>
+                                                            <option value="Manager">Manager</option>
+                                                            <option value="General Manager">General Manager</option>
+                                                            <option value="Supervisor">Supervisor</option>
+                                                            <option value="Officer-in-Charge">Officer-in-Charge</option>
+                                                            <option value="Over all Officer-in-Charge">Over all Officer-in-Charge</option>
+                                                            <option value="Human Resources Department">Human Resources Department</option>
+                                                            <option value="Intern-On-Process">Intern-On-Process</option>
+                                                            <option value="Accounting and Finance Department">Accounting and Finance Department</option>
+                                                            <option value="MCC DigiTex">MCC DigiTex</option>
+                                                            <option style="display:none" value="UIP-Human Resources Department">UIP-Human Resources Department</option>
+                                                            <option style="display:none" value="UIP-Learning and Development Department">UIP-Learning and Development Department</option>
+                                                            <option style="display:none" value="UIP-Auxiliary Department">UIP-Auxiliary Department</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                              </div>
+                          
+                                            </div>
+                                          
+                                                              
+                                           
+                            <div class="form-group">
+                                     <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="school">DUTY SCHEDULE <font size="1.8" color="red"><b>(Please contact the staff if you want to edit this field)</b></font></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="schedule" name="schedule" placeholder="e.g Monday/Friday/Saturday" readonly required>
+                                                </div>
+                                            </div>
+                                           </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="school">UNIVERSITY</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" id="school" name="school" placeholder="Enter University" required>
+                                                    </div>
+                                                </div>
+                                           </div>
+                                      </div>
+                            </div>
+                                           
+                          <div class="form-group">
+                                      <label for="gdrive_link">GOOGLE DRIVE LINK</label>
+                                      <input type="text" class="form-control" id="gdrive_link" name="gdrive_link" placeholder="Enter Google Drive Link" required>
+                                    </div>
+                                          
+                                          <button type="submit" class="btn me-2" id="update_profile"  style="background-color:#0071BD"><strong style="color:#fdfdfd">UPDATE</strong></button>
+                                          <a class="btn btn-dark " id="cancelBtn" href="profile.html">CANCEL</a>
+                                        </form>
+                    </div>
+                  </div>
+              </div>
+          <!-- content-wrapper ends -->
+		</div>
+          
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js "></script>
+    <link rel="stylesheet" href="assets/js/jquery.dataTables.min.css" >
+    <script src="assets/vendors/js/vendor.bundle.base1.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+ 
+  <script>
+  
+  
+	document.addEventListener("DOMContentLoaded", function(event) {
+		setTimeout(function(){
+            document.getElementById("topbar1").style.display = 'none';
+            document.getElementById("topbar").style.opacity = '1';
+            document.getElementById("sidebar1").style.display = 'block';
+
+		    
+            setTimeout(function(){
+                document.getElementById("sidebar1").style.display = 'none';
+                document.getElementById("sidebar2").style.opacity = '1';
+                document.getElementById("main1").style.display = 'block';
+		    
+                setTimeout(function(){
+                    document.getElementById("main1").style.display = 'none';
+                    document.getElementById("main").style.opacity = '1';
+
+
+		        },100);
+            },1000);
+		},1000);
+
+	});
+    
+    function checkShift(user_name){
+			$.ajax({    //create an ajax request to display.php			
+			type: "GET",
+			url: "api/checkTimeShift.php?email="+user_name,                         
+			success: function(response){    		
+			if(response==1)
+			{
+				document.getElementById('take_attendance1').style.display="block";
+			}
+			else if(response==2)
+			{
+				document.getElementById('take_attendance2').style.display="block";
+			}else {
+
+				document.getElementById('take_attendance3').style.display="block";
+			}
+		
+			}
+			});
+		
+		}
+
+
+		function getCookie(cName) {
+	    const name = cName + "=";
+	    const cDecoded = decodeURIComponent(document.cookie); //to be careful
+	    const cArr = cDecoded .split('; ');
+	    let res;
+	    cArr.forEach(val => {
+		  if (val.indexOf(name) === 0) res = val.substring(name.length);
+	    })
+	    return res;
+		  }
+				
+		  function eraseCookie(name) {   
+			document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		  }
+		  
+		  var user_name = getCookie('user_name');
+		  var pwd = getCookie('pwd');
+		  var uty = getCookie('uty');
+      var user_id = getCookie('user_id');
+      var position = getCookie('position');
+		  //alert(usr + " " + pwd + " " + uty);
+      $("#user_acc_id").val(user_id);
+		  if(user_name == undefined){
+			  window.location.replace('index.html');
+		  }
+		  
+      $(document).ready(function(){
+            $("#logout").click(function(){
+              eraseCookie("user_name");
+              eraseCookie("pwd");
+              eraseCookie("uty");
+              eraseCookie("user_id");
+              alert("Thank you for using the app.");
+              window.location.replace('index.html');
+            });
+          });
+      
+      if(uty == 'Admin')
+      {
+        $("#view_team_project").hide();
+        $("#view_project").hide();
+        $("#submit_team_project").hide();
+        $("#submit_project").hide();
+        $("#intern_card").hide();
+        $("#view_for_staff").hide();
+        $("#add_for_staff").hide();
+        $("#apply_leave").hide();
+        $("#leave_status").hide();
+        $("#report_for_intern").hide();
+        $("#take_attendance").hide();
+        $("#take_attendance1").hide();
+        
+      }
+
+      if(uty == 'Staff')
+      {
+        $("#view_team_project").hide();
+        $("#view_project").hide();
+        $("#submit_team_project").hide();
+        $("#submit_project").hide();
+        $("#intern_card").hide();
+        $("#view_for_admin").hide();
+        $("#add_for_admin").hide();
+        $("#apply_leave").hide();
+        $("#leave_status").hide();
+        $("#report_for_intern").hide();
+        $("#take_attendance").hide();
+        $("#take_attendance1").hide();
+        
+      }
+
+      
+      if(uty == 'Intern')
+      {
+        if(position == 1)
+        {
+          $("#all_project").hide();
+          $("#team_project").hide();
+          $("#admin_card").hide();
+          $("#view_for_admin").hide();
+          $("#manage_team").hide();
+          $("#manage_time").hide();
+          $("#manage_user").hide();
+          $("#manage_intern").hide();
+          $("#webinar").hide();
+          $("#permission").hide();
+          $("#add_for_admin").hide();
+          $("#pending").hide();
+          $("#logs").hide();
+          $("#report_for_admin").hide();
+          $("#admin_only").hide();
+          $("#admin_only1").hide();
+        }
+        else if(position == 2)
+        {
+          $("#all_project").hide();
+          $("#team_project").hide();
+          $("#admin_card").hide();
+          $("#view_for_admin").hide();
+          $("#manage_team").hide();
+          $("#manage_time").hide();
+          $("#manage_user").hide();
+          $("#manage_intern").hide();
+          $("#webinar").hide();
+          $("#permission").hide();
+          $("#add_for_admin").hide();
+          $("#pending").hide();
+          $("#logs").hide();
+          $("#report_for_admin").hide();
+          $("#admin_only").hide();
+          $("#admin_only1").hide();
+          $("#submit_team_project").hide();
+          $("#weekly_repord_leader_only").hide();
+          $("#weekly_repord_leader_only1").hide();
+        }
+        else if(position == 3)
+        {
+          $("#all_project").hide();
+          $("#team_project").hide();
+          $("#admin_card").hide();
+          $("#view_for_admin").hide();
+          $("#manage_team").hide()
+          $("#manage_time").hide()
+          $("#manage_user").hide()
+          $("#manage_intern").hide()
+          $("#webinar").hide()
+          $("#permission").hide()
+          $("#add_for_admin").hide();
+          $("#pending").hide();
+          $("#logs").hide();
+          $("#report_for_admin").hide();
+          $("#admin_only").hide();
+          $("#admin_only1").hide();
+          $("#submit_team_project").hide();
+          $("#weekly_report").hide();
+          $("#view_team_project").hide();
+
+        }
+        else if (position == 0){
+          $("#all_project").hide();
+          $("#team_project").hide();
+          $("#admin_card").hide();
+          $("#view_for_admin").hide();
+          $("#manage_team").hide()
+          $("#manage_time").hide()
+          $("#manage_user").hide()
+          $("#manage_intern").hide()
+          $("#webinar").hide()
+          $("#permission").hide()
+          $("#add_for_admin").hide();
+          $("#pending").hide();
+          $("#logs").hide();
+          $("#report_for_admin").hide();
+          $("#admin_only").hide();
+          $("#admin_only1").hide();
+          $("#submit_team_project").hide();
+          $("#weekly_report").hide();
+          $("#view_team_project").hide();
+
+
+        }
+      }
+      checkShift(user_name);
+    </script>
+    <script>
+      $(document).ready(function(){
+    
+        $.ajax({    //create an ajax request to display.php
+          type: "GET",
+          url: "api/edit_profile1.php?id="+ user_id,             
+          dataType: "html",   //expect html to be returned                
+          success: function(response){
+            
+            $("#display_profile").html(response); 
+            //alert(response);
+          }
+        });
+    
+      });
+      </script>
+      <script>
+        var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+        };
+      </script>
+      <script>
+         $(document).ready(function(e){
+        
+                $.get("api/get_profile_data.php?id="+ user_id, function(data){
+                          // Display the returned data in browser
+            
+                    var editProfile1 = data.split("|");
+            
+                    $("#firstname").val(editProfile1[0]);
+                    $("#middle_name").val(editProfile1[1]);
+                    $("#lastname").val(editProfile1[2]);
+                    $("#street").val(editProfile1[3]);
+                    $("#barangay").val(editProfile1[4]);
+                    $("#city").val(editProfile1[5]);
+                    $("#province").val(editProfile1[6]);
+                    $("#religion").val(editProfile1[8]);
+                    $("#birthdate").val(editProfile1[7]);
+                    $("#sex").val(editProfile1[9]);
+                    $("#civil_status").val(editProfile1[10]);
+                    $("#email").val(editProfile1[11]);
+                    $("#mobile_number").val(editProfile1[12]);
+                    $("#company").val(editProfile1[13]);
+                    $("#department").val(editProfile1[14]);
+                    $("#gdrive_link").val(editProfile1[15]);
+                    $("#school").val(editProfile1[16]);
+                    $("#schedule").val(editProfile1[17]);
+                    
+                    
+                });
+          
+          
+        $("#entry-form").on('submit',(function(e){
+
+            $("#cancelBtn").hide();
+            $("#update_profile").prop("disabled", true);
+            $("#update_profile").html(
+            "<i class='spinner-border spinner-border-sm text-light' role='status' aria-hidden='true' ></i> <strong style='color:#f7f7f7'>&nbspLOADING</strong> "
+            );
+    
+        e.preventDefault();
+        $.ajax({
+        url: "api/edit_profile.php",
+        type: "POST",
+        data:  new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data){
+          if(data == 1)
+                {
+    
+                      setTimeout( function ( )
+                    {
+                      $("#cancelBtn").show();
+                      $("#update_profile").prop("disabled", false);
+                      $("#update_profile").html(
+                      "<span  role='status' aria-hidden='true'></span> <strong style='color:#f7f7f7'>UPDATE</strong>"
+                      );
+                    }, 4000 );
+                    
+                       setTimeout(function() {
+                        swal({
+                        type: 'success',
+                        title: 'Edit success!',
+                        text: 'Profile edited sucussfully'
+                        }, function() {
+                        window.location = 'profile.html';
+                        });
+                        }, 1000);
+    
+                }
+                else if(data == 0)
+                {
+                      setTimeout( function ( )
+                    {
+                      $("#cancelBtn").show();
+                      $("#update_profile").prop("disabled", false);
+                      $("#update_profile").html(
+                      "<span  role='status' aria-hidden='true'></span> <strong style='color:#f7f7f7'>UPDATE</strong>"
+                      );
+                    }, 4000 );
+    
+                    setTimeout( function ( ) { alert( "Entry failed" );}, 4350 );
+                
+                }
+                else if(data == 3)
+                {
+                      setTimeout( function ( )
+                    {
+                      $("#cancelBtn").show();
+                      $("#update_profile").prop("disabled", false);
+                      $("#update_profile").html(
+                      "<span  role='status' aria-hidden='true'></span> <strong style='color:#f7f7f7'>UPDATE</strong>"
+                      );
+                    }, 4000 );
+    
+                    setTimeout( function ( ) { alert( "Upload Image only" );}, 4350 );
+                    
+                }
+          
+        },
+        error: function(){} 	        
+        });
+        }));
+      });
+          
+      </script>
+      <script>
+        $(document).ready(function(){
+  
+          $.ajax({    //create an ajax request to display.php
+            type: "GET",
+            url: "api/get-current-login-data.php?id="+ user_id,             
+            dataType: "html",   //expect html to be returned                
+            success: function(response){
+              var response1 = response.split("|");
+              
+              $("#display_profile_fullname").html(response1[1]); 
+              $("#display_profile_fullname1").html(response1[0] + ' ' + response1[1]); 
+              $("#display_profile_intern_status").html(response1[2]); 
+              $("#display_profile_picture").attr('src',"api/uploaded_profile/" + response1[3]); 
+              $("#display_profile_picture1").attr('src',"api/uploaded_profile/" + response1[3]); 
+              //alert(response);
+            }
+          });
+      
+        });
+        </script>
+<script>
+
+        $.ajax({
+				type: "GET",
+				async: false,
+				url: "api/count_online.php", 				
+				success: function(response){ 
+
+					    $("#count_online").html(response); 
+                    
+				}
+				
+			});
+     
+
+
+</script>
+<script>
+
+            $.ajax({
+				type: "POST",
+				url: "api/updateOnline.php?id="+user_name, 				
+				success: function(){ 
+                    
+				}
+				
+			});
+
+</script>
+<script>
+
+        $.ajax({
+				type: "GET",
+				async: false,
+				url: "api/intern_dept.php?id="+user_id,				
+				success: function(response){ 
+                        
+                        if(response == 'UIP-Human Resources Department' || response == 'UIP-Learning and Development Department' || response == 'UIP-Auxiliary Department')
+                        {
+                            $("#department option[value='UIP-Human Resources Department']").css('display','block');
+                            $("#department option[value='UIP-Learning and Development Department']").css('display','block');
+                            $("#department option[value='UIP-Auxiliary Department']").css('display','block');
+                        }
+                    
+				}
+			});
+     
+
+
+</script>
+</html>

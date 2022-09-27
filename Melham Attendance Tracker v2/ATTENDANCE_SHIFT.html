@@ -1,0 +1,35 @@
+				        <a  href="take_attendance.html" id="take_attendance1" class="btn btn-block btn-lg btn mt-4" style="display: none; background-color:#0071BD" >
+                  <strong style="color:#f7f7f7">ATTENDANCE</strong> 
+                          </a>
+				        <a  href="take_attendance_2.html" id="take_attendance2" class="btn btn-block btn-lg btn mt-4" style="display: none; background-color:#0071BD" >
+                  <strong style="color:#f7f7f7">ATTENDANCE</strong> 
+                          </a>
+				        <a href="take_attendance_3.html" id="take_attendance3" class="btn btn-block btn-lg btn mt-4" style="display: none; background-color:#0071BD" >
+                  <strong style="color:#f7f7f7">ATTENDANCE</strong> 
+                          </a>
+						  
+						  
+						  
+		function checkShift(user_name){
+			$.ajax({    //create an ajax request to display.php			
+			type: "GET",
+			url: "api/checkTimeShift.php?email="+user_name,                         
+			success: function(response){    		
+			if(response==1)
+			{
+				document.getElementById('take_attendance1').style.display="block";
+			}
+			else if(response==2)
+			{
+				document.getElementById('take_attendance2').style.display="block";
+			}else {
+				document.getElementById('take_attendance3').style.display="block";
+			}
+		
+			}
+			});
+		
+		}
+
+
+checkShift(user_name);		
