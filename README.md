@@ -15,6 +15,7 @@ read and follow the instruction at readme.txt that can found at database folder
 use this following credentials.
 
 Admin account username: admin0101@gmail.com password: admin0101
+
 Staff account username: staff0101@gmail.com password: staff0101
 
 You can register a user or intern account directly to the system but make sure to set the SMTP first which can be found at "SMTP GUIDE" tab but you need to log in as an admin account.
